@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreCMF\corecmf;
+namespace CoreCMF\Corecmf;
 
 use Illuminate\Support\ServiceProvider;
 
