@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreCMF\Corecmf;
+namespace CoreCMF\Socialite;
 
 use Illuminate\Support\ServiceProvider;
 
