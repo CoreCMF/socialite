@@ -58,7 +58,7 @@ class AuthController extends Controller
             Auth::id(), $this->request->session()->token()
         );//携带 api  cookie
         Auth::login($user);
-        return redirect($this->redirectUrl())->withCookie($cookie);//重定向
+        return redirect($this->redirectUrl());//重定向
     }
     /**
      * 创建用户

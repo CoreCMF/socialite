@@ -6,6 +6,10 @@ use Illuminate\Support\ServiceProvider;
 use Socialite;
 class SocialiteServiceProvider extends ServiceProvider
 {
+    protected $commands = [
+        \CoreCMF\Socialite\Commands\InstallCommand::class,
+        \CoreCMF\Socialite\Commands\UninstallCommand::class,
+    ];
     /**
      * Perform post-registration booting of services.
      *
@@ -13,6 +17,8 @@ class SocialiteServiceProvider extends ServiceProvider
      */
     public function boot(Socialite $Socialite)
     {
+        //加载artisan commands
+        $this->commands($this->commands);
         //配置路由
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
         //迁移文件配置
