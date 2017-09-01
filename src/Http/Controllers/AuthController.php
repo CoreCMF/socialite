@@ -21,7 +21,7 @@ class AuthController extends Controller
      */
     public function redirectToProvider($service, $redirect=null)
     {
-        session(['redirect' => $redirect]);//传入授权后的跳转网址
+        session(['redirect' => $redirect]);//传入授权后的重定向加密网址 存入session
         return Socialite::driver($service)->with(['hd' => 'example.com'])->redirect();
     }
 
@@ -34,15 +34,14 @@ class AuthController extends Controller
     {
         $user = Socialite::driver($service)->user();
         dd($user);
-        return redirect($this->redirect());
+        return redirect($this->redirectUrl());//重定向
     }
-    private function redirect()
+    /**
+     * 重定向url
+     */
+    private function redirectUrl()
     {
         $redirect = $this->request->session()->get('redirect');
-        if ($redirect) {
-            return decrypt($redirect);//解密重定向网址
-        }else{
-            return '/';
-        }
+        return $redirect? decrypt($redirect): '/';
     }
 }
