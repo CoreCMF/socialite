@@ -15,6 +15,8 @@ class SocialiteServiceProvider extends ServiceProvider
     {
         //配置路由
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+        //迁移文件配置
+        $this->loadMigrationsFrom(__DIR__.'/Databases/migrations');
         // 加载配置
         $this->mergeConfigFrom(__DIR__.'/Config/config.php', 'socialite');
         $this->initService();
