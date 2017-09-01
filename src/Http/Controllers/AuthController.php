@@ -8,12 +8,12 @@ use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
 {
-      private $request;
+    private $request;
 
-      public function __construct(Request $request)
-      {
-          $this->request = $request;
-      }
+    public function __construct(Request $request)
+    {
+        $this->request = $request;
+    }
     /**
      * 将用户重定向到Github认证页面
      *
@@ -42,6 +42,6 @@ class AuthController extends Controller
     private function redirectUrl()
     {
         $redirect = $this->request->session()->get('redirect');
-        return $redirect? decrypt($redirect): '/';
+        return $redirect? decrypt($redirect): '/'; //解密重定向网址
     }
 }
