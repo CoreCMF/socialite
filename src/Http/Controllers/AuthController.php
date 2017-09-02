@@ -8,21 +8,25 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\Models\User as SocialiteUser;
 use CoreCMF\Core\Models\User;
+use CoreCMF\Core\Models\Upload;
 
 class AuthController extends Controller
 {
     private $request;
     private $userModel;
+    private $uploadModel;
     private $socialiteUserModel;
 
     public function __construct(
       Request $request,
       User $userRepo,
+      Upload $uploadRepo,
       SocialiteUser $socialiteUserRepo
     )
     {
         $this->request = $request;
         $this->userModel = $userRepo;
+        $this->uploadModel = $uploadRepo;
         $this->socialiteUserModel = $socialiteUserRepo;
     }
     /**
@@ -67,6 +71,10 @@ class AuthController extends Controller
                 'nickname' => $socialiteUser->nickname,
             ];
             $user = $this->userModel->create($input);//创建用户
+            //保存头像
+            $imgName = $service.'_'.$socialiteUser->id;//保存头像名称
+            $avatarId = $this->uploadModel->imageRemote($socialiteUser->avatar,$imgName,'avatar')['uploadData']->id;
+            $user->userInfos()->create(['avatar' => $avatarId]);//插入关联头像图片id
         }
         // 关联用户
         $this->socialiteUserModel->$service = $socialiteUser->id;
