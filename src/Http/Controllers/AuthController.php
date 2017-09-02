@@ -6,26 +6,22 @@ use Auth;
 use Socialite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Laravel\Passport\ApiTokenCookieFactory;
 use CoreCMF\Socialite\Models\User as SocialiteUser;
 use CoreCMF\Core\Models\User;
 
 class AuthController extends Controller
 {
     private $request;
-    private $cookieFactory;
     private $userModel;
     private $socialiteUserModel;
 
     public function __construct(
       Request $request,
-      ApiTokenCookieFactory $cookieFactory,
       User $userRepo,
       SocialiteUser $socialiteUserRepo
     )
     {
         $this->request = $request;
-        $this->cookieFactory = $cookieFactory;
         $this->userModel = $userRepo;
         $this->socialiteUserModel = $socialiteUserRepo;
     }
@@ -54,9 +50,6 @@ class AuthController extends Controller
         }else{
             $user = $socialite->users;
         }
-        $cookie = $this->cookieFactory->make(
-            Auth::id(), $this->request->session()->token()
-        );//携带 api  cookie
         Auth::login($user);
         return redirect($this->redirectUrl());//重定向
     }
