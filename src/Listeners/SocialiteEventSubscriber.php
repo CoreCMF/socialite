@@ -1,23 +1,30 @@
 <?php
 
 namespace CoreCMF\Socialite\Listeners;
-
+/**
+ * [SocialiteEventSubscriber 社会登录事件订阅者]
+ */
 class SocialiteEventSubscriber
 {
     /**
      * 处理BuilderForm登录页面渲染
+     * 监听BuilderForm事件下的login事件
      * @translator laravelacademy.org
      */
     public function onBuilderFormLogin($event)
     {
-        $event->form->item(['name' => 'password',      'type' => 'password',    'placeholder' => '请输入账户密码']);
-    }
-
-    /**
-     * 处理用户退出事件.
-     */
-    public function onUserLogout($event) {
-
+        $form = $event->form;
+        if ($form->event == 'login') {
+            $form->item([
+                    'type' => 'html',
+                    'style' => [ 'margin-bottom'=> '25px', 'text-align'=>'center' ],
+                    'data' => '
+                      <svg class="icon" aria-hidden="true">
+                          <use xlink:href="#icon-social-blogger"></use>
+                      </svg>
+                    <img src="http://vueadmin.hinplay.com/static/images/a5ceee8b.png">'
+                  ]);
+        }
     }
 
     /**
