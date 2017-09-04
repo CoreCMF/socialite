@@ -25,8 +25,11 @@ class SocialiteServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/Databases/migrations');
         // 加载配置
         $this->mergeConfigFrom(__DIR__.'/Config/config.php', 'socialite');
+        //设置发布前端文件
+        $this->publishes([
+            __DIR__.'/../resources/vendor/' => public_path('vendor'),
+        ], 'socialite');
         $this->initService();
-
     }
 
     /**
@@ -51,6 +54,7 @@ class SocialiteServiceProvider extends ServiceProvider
         config(['services.github' => $github]);
         //注册providers服务
         $this->registerProviders();
+        $this->viewShare();
     }
     /**
      * 注册引用服务
@@ -61,5 +65,15 @@ class SocialiteServiceProvider extends ServiceProvider
         foreach ($providers as $provider) {
             $this->app->register($provider);
         }
+    }
+    /**
+     * [viewShare 视图共享数据]
+     * @return [type] [description]
+     */
+    public function viewShare()
+    {
+        $builderAsset = resolve('builderAsset');
+        $builderAsset->js(asset('/vendor/socialite/js/iconfont.js'));
+        view()->share('resources', $builderAsset->response());//视图共享数据
     }
 }
