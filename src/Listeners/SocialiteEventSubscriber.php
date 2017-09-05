@@ -15,15 +15,41 @@ class SocialiteEventSubscriber
     {
         $form = $event->form;
         if ($form->event == 'login') {
-            $form->item([
-                    'type' => 'html',
-                    'style' => [ 'margin-bottom'=> '25px', 'text-align'=>'center' ],
-                    'data' => '
-                      <svg class="icon" aria-hidden="true">
-                          <use xlink:href="#icon-social-blogger"></use>
-                      </svg>
-                    <img src="http://vueadmin.hinplay.com/static/images/a5ceee8b.png">'
-                  ]);
+            $url = '/OAuth/service/';
+            $url = str_replace("service","github",$url); //驱动替换后期放到model里面处理
+            $redirect = array_key_exists('redirect',$form->config)? encrypt($form->config['redirect']): null;
+            if ($redirect) {
+                $url .= $redirect;
+            }
+            $form->htmlEnd('
+                    <div class="socialite">
+                      <a href="'.$url.'">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-social-github"></use>
+                        </svg>
+                      </a>
+                      <a href="">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-social-qq"></use>
+                        </svg>
+                      </a>
+                      <a href="">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-social-wechat"></use>
+                        </svg>
+                      </a>
+                      <a href="">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-social-wechat"></use>
+                        </svg>
+                      </a>
+                      <a href="">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-social-wechat"></use>
+                        </svg>
+                      </a>
+                    </div>
+                  ');
         }
     }
 
