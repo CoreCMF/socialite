@@ -1,6 +1,6 @@
 {
     "name": "corecmf/socialite",
-    "type": "corecmf-socialite",
+    "type": "Library",
     "description": "corecmf socialite package",
     "keywords": [
         "CoreCMF",
