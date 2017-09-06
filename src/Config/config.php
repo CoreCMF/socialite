@@ -7,6 +7,7 @@ return [
     'author' => 'BigRocs',
     'version' => 'v1.1.6',
     'serviceProvider' => CoreCMF\Socialite\SocialiteServiceProvider::class,
+    'install' => 'corecmf:socialite:install',//安装artisan命令
     'providers' => [
         Laravel\Socialite\SocialiteServiceProvider::class,
         CoreCMF\Socialite\Providers\EventServiceProvider::class,//事件服务
