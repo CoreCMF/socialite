@@ -7,8 +7,8 @@ use Socialite;
 class SocialiteServiceProvider extends ServiceProvider
 {
     protected $commands = [
-        \CoreCMF\Socialite\Commands\InstallCommand::class,
-        \CoreCMF\Socialite\Commands\UninstallCommand::class,
+        \CoreCMF\Socialite\Console\InstallCommand::class,
+        \CoreCMF\Socialite\Console\UninstallCommand::class,
     ];
     /**
      * Perform post-registration booting of services.
