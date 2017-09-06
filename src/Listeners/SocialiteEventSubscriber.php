@@ -52,7 +52,18 @@ class SocialiteEventSubscriber
                   ');
         }
     }
-
+    /**
+     * [onBuilderTableModule 后台模型table渲染处理]
+     * @param  [type] $event [description]
+     * @return [type]        [description]
+     */
+    public function onBuilderTableModule($event)
+    {
+        $table = $event->table;
+        if ($table->event == 'module') {
+                  dd($table->data);
+        }
+    }
     /**
      * 为订阅者注册监听器.
      *
@@ -63,6 +74,10 @@ class SocialiteEventSubscriber
         $events->listen(
             'CoreCMF\Core\Events\BuilderForm',
             'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderFormLogin'
+        );
+        $events->listen(
+            'CoreCMF\Core\Events\BuilderTable',
+            'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderTableModule'
         );
     }
 
