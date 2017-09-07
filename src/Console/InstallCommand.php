@@ -42,6 +42,7 @@ class InstallCommand extends Command
     public function handle()
     {
         $this->info($this->install->migrate());
+        $this->info($this->install->seed(\CoreCMF\Socialite\Databases\seeds\ConfigTableSeeder::class));
         $this->info($this->install->publish('socialite'));//发布前端资源
     }
 }
