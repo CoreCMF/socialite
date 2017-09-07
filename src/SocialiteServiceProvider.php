@@ -21,6 +21,7 @@ class SocialiteServiceProvider extends ServiceProvider
         $this->commands($this->commands);
         //配置路由
         $this->loadRoutesFrom(__DIR__.'/Routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
         //迁移文件配置
         $this->loadMigrationsFrom(__DIR__.'/Databases/migrations');
         // 加载配置
