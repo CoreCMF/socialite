@@ -3,22 +3,47 @@
 namespace CoreCMF\Socialite\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use CoreCMF\Core\Support\Http\Request as CoreRequest;
 use Illuminate\Container\Container;
 
 use App\Http\Controllers\Controller;
+use CoreCMF\Socialite\Models\Config;
 
 class ConfigController extends Controller
 {
+    private $configModel;
 
-    public function __construct(){
+    public function __construct(Config $configPro){
+       $this->configModel = $configPro;
     }
-    public function index(Request $request)
+    public function index(CoreRequest $request)
     {
-        dd('aa');
-        $html = $this->container->make('builderHtml')
+        $service  = $request->get('tabIndex','wechat');
+        $configs = $this->configModel->where('service', '=', $service)->first();
+
+        $configAll = $this->configModel->all();
+        foreach ($configAll as $key => $item) {
+            $tabs[$item->service] = $item->name;
+        }
+        $form = resolve('builderForm')
+                  ->tabs($tabs)
+                  ->item(['name' => 'status',       'type' => 'switch',   'label' => '开关',        'value'=> $configs->status])
+                  ->item(['name' => 'service',      'type' => 'text',     'label' => '驱动标识',     'value'=> $configs->service,'disabled'=>true])
+                  ->item(['name' => 'client_id',    'type' => 'text',     'label' => '客户ID',      'value'=> $configs->client_id])
+                  ->item(['name' => 'client_secret','type' => 'text',     'label' => '客户密钥',     'value'=> $configs->client_secret])
+                  ->item(['name' => 'redirect',     'type' => 'text',     'label' => '回调地址',     'value'=> $configs->redirect])
+                  ->apiUrl('submit',route('api.socialite.config.update'))
+                  ->config('labelWidth','100px');
+        $html = resolve('builderHtml')
                   ->title('配置管理')
+                  ->item($form)
                   ->response();
         return $html;
+    }
+    public function update(Request $request)
+    {
+      dd('uodate');
+        return '';
     }
 
 }

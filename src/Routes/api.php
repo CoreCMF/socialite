@@ -17,8 +17,9 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CoreCMF\
     |--------------------------------------------------------------------------
     */
     Route::group(['prefix' => 'socialite', 'as' => 'socialite.', 'middleware' => ['auth:api']], function () {
-	    Route::group(['prefix' => 'config', 'as' => 'config.'], function () {
-		    Route::post('/',                ['as' => 'index',     'uses' => 'ConfigController@index']);
-		  });
+  	    Route::group(['prefix' => 'config', 'as' => 'config.'], function () {
+    		    Route::post('/',                ['as' => 'index',     'uses' => 'ConfigController@index']);
+            Route::post('update',           ['as' => 'update',     'uses' => 'ConfigController@update']);
+  		  });
 	 });
 });
