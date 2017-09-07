@@ -61,7 +61,14 @@ class SocialiteEventSubscriber
     {
         $table = $event->table;
         if ($table->event == 'module') {
-                  dd($table->data);
+            $table->data->transform(function ($item, $key) {
+                if ($item->name == 'Socialite') {
+                    $item->rightButton = [
+                        ['title'=>'配置编辑','apiUrl'=> route('api.admin.user.role.permission'),'type'=>'info', 'icon'=>'fa fa-edit']
+                    ];
+                }
+                return $item;
+            });
         }
     }
     /**
