@@ -25,27 +25,27 @@ class SocialiteEventSubscriber
                     <div class="socialite">
                       <a href="'.$url.'">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-social-github"></use>
+                            <use xlink:href="#icon-github"></use>
                         </svg>
                       </a>
                       <a href="">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-social-qq"></use>
+                            <use xlink:href="#icon-qq"></use>
                         </svg>
                       </a>
                       <a href="">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-social-wechat"></use>
+                            <use xlink:href="#icon-wechat"></use>
                         </svg>
                       </a>
                       <a href="">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-social-wechat"></use>
+                            <use xlink:href="#icon-wechat"></use>
                         </svg>
                       </a>
                       <a href="">
                         <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-social-wechat"></use>
+                            <use xlink:href="#icon-wechat"></use>
                         </svg>
                       </a>
                     </div>
@@ -64,7 +64,7 @@ class SocialiteEventSubscriber
             $table->data->transform(function ($item, $key) {
                 if ($item->name == 'Socialite') {
                     $item->rightButton = [
-                        ['title'=>'配置编辑','apiUrl'=> route('api.admin.user.role.permission'),'type'=>'info', 'icon'=>'fa fa-edit']
+                        ['title'=>'配置编辑','apiUrl'=> route('api.socialite.config.index'),'type'=>'info', 'icon'=>'fa fa-edit']
                     ];
                 }
                 return $item;
