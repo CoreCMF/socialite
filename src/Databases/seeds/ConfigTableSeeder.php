@@ -1,5 +1,5 @@
 <?php
-namespace CoreCMF\Core\Databases\seeds;
+namespace CoreCMF\Socialite\Databases\seeds;
 
 use DB;
 use Illuminate\Database\Seeder;

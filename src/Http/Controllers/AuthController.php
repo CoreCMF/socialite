@@ -22,8 +22,7 @@ class AuthController extends Controller
       User $userRepo,
       Upload $uploadRepo,
       SocialiteUser $socialiteUserRepo
-    )
-    {
+    ){
         $this->request = $request;
         $this->userModel = $userRepo;
         $this->uploadModel = $uploadRepo;

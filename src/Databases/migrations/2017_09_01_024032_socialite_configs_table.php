@@ -14,12 +14,12 @@ class SocialiteConfigsTable extends Migration
     public function up()
     {
         Schema::create('socialite_configs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('name')           ->comment('驱动名称')->unsigned();
-            $table->integer('service')        ->comment('驱动标示')->unique() ->unsigned();
-            $table->integer('client_id')      ->comment('客户ID') ->nullable()->unsigned();
-            $table->integer('client_secret')  ->comment('客户密钥')->nullable()->unsigned();
-            $table->integer('redirect')       ->comment('回调地址')->nullable()->unsigned();
+            $table->increments('id')->unsigned();
+            $table->string('name',30)           ->comment('驱动名称');
+            $table->string('service',30)        ->comment('驱动标示')->unique() ;
+            $table->string('client_id',60)      ->comment('客户ID') ->nullable();
+            $table->string('client_secret',80)  ->comment('客户密钥')->nullable();
+            $table->string('redirect',180)       ->comment('回调地址')->nullable();
             $table->tinyInteger('status')     ->comment('状态')->default(0);
             $table->timestamps();
         });
