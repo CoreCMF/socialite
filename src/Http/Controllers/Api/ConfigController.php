@@ -35,7 +35,7 @@ class ConfigController extends Controller
                   ->apiUrl('submit',route('api.socialite.config.update'))
                   ->config('labelWidth','100px');
         $html = resolve('builderHtml')
-                  ->title('配置管理')
+                  ->title('Socialite配置')
                   ->item($form)
                   ->response();
         return $html;
