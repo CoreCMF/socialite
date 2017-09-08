@@ -53,14 +53,14 @@ class SocialiteEventSubscriber
         }
     }
     /**
-     * [onBuilderTableModule 后台模型table渲染处理]
+     * [onBuilderTablePackage 后台模型table渲染处理]
      * @param  [type] $event [description]
      * @return [type]        [description]
      */
-    public function onBuilderTableModule($event)
+    public function onBuilderTablePackage($event)
     {
         $table = $event->table;
-        if ($table->event == 'module') {
+        if ($table->event == 'package') {
             $table->data->transform(function ($item, $key) {
                 if ($item->name == 'Socialite') {
                     $item->rightButton = [
@@ -84,7 +84,7 @@ class SocialiteEventSubscriber
         );
         $events->listen(
             'CoreCMF\Core\Events\BuilderTable',
-            'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderTableModule'
+            'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderTablePackage'
         );
     }
 
