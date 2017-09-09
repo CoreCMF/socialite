@@ -36,7 +36,7 @@ class AuthController extends Controller
     public function redirectToProvider($service, $redirect=null)
     {
         $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
-        return Socialite::driver($service)->with(['hd' => 'example.com'])->redirect();
+        return Socialite::driver($service)->redirect();
     }
 
     /**
