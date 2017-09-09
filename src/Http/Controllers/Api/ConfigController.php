@@ -42,8 +42,19 @@ class ConfigController extends Controller
     }
     public function update(Request $request)
     {
-      dd('uodate');
-        return '';
+        $config = $this->configModel->where('service', $request->service)->update($request->all());
+        if ($config) {
+            $message = [
+              'message'   => '配置保存成功!',
+              'type'      => 'success',
+            ];
+        }else{
+            $message = [
+              'message'   => '配置保存失败!',
+              'type'      => 'error',
+            ];
+        }
+        return resolve('builderHtml')->message($message)->response();
     }
 
 }
