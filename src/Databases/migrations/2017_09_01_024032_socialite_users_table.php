@@ -15,20 +15,20 @@ class SocialiteUsersTable extends Migration
     {
         Schema::create('socialite_users', function (Blueprint $table) {
             $table->increments('user_id')->unsigned();
-            $table->integer('github')->comment('GitHub')        ->nullable()->unsigned();
-            $table->integer('facebook')->comment('Facebook')    ->nullable()->unsigned();
-            $table->integer('google')->comment('Google')       ->nullable()->unsigned();
-            $table->integer('linkedin')->comment('LinkedIn')    ->nullable()->unsigned();
-            $table->integer('twitter')->comment('Twitter')      ->nullable()->unsigned();
-            $table->integer('qq')->comment('QQ')                ->nullable()->unsigned();
-            $table->integer('wechat')->comment('微信')          ->nullable()->unsigned();
-            $table->integer('wechatweb')->comment('微信WEB')    ->nullable()->unsigned();
-            $table->integer('weibo')->comment('微博')           ->nullable()->unsigned();
-            $table->integer('renren')->comment('人人')          ->nullable()->unsigned();
-            $table->integer('douban')->comment('豆瓣')          ->nullable()->unsigned();
-            $table->integer('baidu')->comment('百度')           ->nullable()->unsigned();
-            $table->integer('taobao')->comment('淘宝')          ->nullable()->unsigned();
-            $table->integer('alipay')->comment('支付宝')        ->nullable()->unsigned();
+            $table->string('github',64)->comment('GitHub')        ->nullable();
+            $table->string('facebook',64)->comment('Facebook')    ->nullable();
+            $table->string('google',64)->comment('Google')       ->nullable();
+            $table->string('linkedin',64)->comment('LinkedIn')    ->nullable();
+            $table->string('twitter',64)->comment('Twitter')      ->nullable();
+            $table->string('qq',64)->comment('QQ')                ->nullable();
+            $table->string('wechat',64)->comment('微信')          ->nullable();
+            $table->string('wechatweb',64)->comment('微信WEB')    ->nullable();
+            $table->string('weibo',64)->comment('微博')           ->nullable();
+            $table->string('renren',64)->comment('人人')          ->nullable();
+            $table->string('douban',64)->comment('豆瓣')          ->nullable();
+            $table->string('baidu',64)->comment('百度')           ->nullable();
+            $table->string('taobao',64)->comment('淘宝')          ->nullable();
+            $table->string('alipay',64)->comment('支付宝')        ->nullable();
             $table->foreign('user_id')->references('id')->on('core_users')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
