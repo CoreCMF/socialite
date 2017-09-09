@@ -2,8 +2,10 @@
 
 namespace CoreCMF\Socialite;
 
-use Illuminate\Support\ServiceProvider;
 use Socialite;
+use Illuminate\Support\ServiceProvider;
+use CoreCMF\Socialite\Models\Config;
+
 class SocialiteServiceProvider extends ServiceProvider
 {
     protected $commands = [
@@ -15,7 +17,7 @@ class SocialiteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(Socialite $Socialite)
+    public function boot()
     {
         //加载artisan commands
         $this->commands($this->commands);
@@ -47,12 +49,8 @@ class SocialiteServiceProvider extends ServiceProvider
      */
     public function initService()
     {
-        $github = [
-            'client_id' => '8aeca72d03782ea999ad',
-            'client_secret' => '68b41095d1723798590ed3f0452a9c91dec92e05',
-            'redirect' => 'http://corecmf.dev/OAuth/github/callback',
-        ];
-        config(['services.github' => $github]);
+        $config = new Config();
+        $config->configRegister();//注册配置信息
         //注册providers服务
         $this->registerProviders();
         $this->viewShare();
