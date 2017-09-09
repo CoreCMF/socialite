@@ -75,10 +75,17 @@ class AuthController extends Controller
             $avatarId = $this->uploadModel->imageRemote($socialiteUser->avatar,$imgName,'avatar')['uploadData']->id;
             $user->userInfos()->create(['avatar' => $avatarId]);//插入关联头像图片id
         }
-        // 关联用户
-        $this->socialiteUserModel->$service = $socialiteUser->id;
-        $this->socialiteUserModel->user_id  = $user->id;
-        return $this->socialiteUserModel->save()? $user: false;
+        $socialite = $this->socialiteUserModel->where('user_id', $user->id)->first();
+        if ($socialite) {
+            //已绑定用户增加绑定新的第三方
+            $update = $this->socialiteUserModel->where('user_id', $user->id)->update([$service => $socialiteUser->id]);
+            return $update? $user: false;
+        }else{
+            // 关联用户
+            $this->socialiteUserModel->$service = $socialiteUser->id;
+            $this->socialiteUserModel->user_id  = $user->id;
+            return $this->socialiteUserModel->save()? $user: false;
+        }
     }
     /**
      * 重定向url
