@@ -1,11 +1,18 @@
 <?php
 
 namespace CoreCMF\Socialite\Listeners;
+
+use CoreCMF\Socialite\Models\Config;
 /**
  * [SocialiteEventSubscriber 社会登录事件订阅者]
  */
 class SocialiteEventSubscriber
 {
+    private $configModel;
+
+    public function __construct(Config $configPro){
+       $this->configModel = $configPro;
+    }
     /**
      * 处理BuilderForm登录页面渲染
      * 监听BuilderForm事件下的login事件
@@ -15,39 +22,25 @@ class SocialiteEventSubscriber
     {
         $form = $event->form;
         if ($form->event == 'login') {
-            $url = '/OAuth/service/';
-            $url = str_replace("service","github",$url); //驱动替换后期放到model里面处理
+            $html = null;
             $redirect = array_key_exists('redirect',$form->config)? encrypt($form->config['redirect']): null;
-            if ($redirect) {
-                $url .= $redirect;
+
+            $configs = $this->configModel->where('status', 1)->get();
+            foreach ($configs as $key => $config) {
+                $url = '/OAuth/service/';
+                $url = str_replace("service",$config['service'],$url); //驱动替换后期放到model里面处理
+                if ($redirect) {
+                    $url .= $redirect;
+                }
+                $html .= '<a href="'.$url.'">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-'.$config['service'].'"></use>
+                            </svg>
+                          </a>';
             }
             $form->htmlEnd('
                     <div class="socialite">
-                      <a href="'.$url.'">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-github"></use>
-                        </svg>
-                      </a>
-                      <a href="">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-qq"></use>
-                        </svg>
-                      </a>
-                      <a href="">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-wechat"></use>
-                        </svg>
-                      </a>
-                      <a href="">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-wechat"></use>
-                        </svg>
-                      </a>
-                      <a href="">
-                        <svg class="icon" aria-hidden="true">
-                            <use xlink:href="#icon-wechat"></use>
-                        </svg>
-                      </a>
+                      '.$html.'
                     </div>
                   ');
         }
