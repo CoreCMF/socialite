@@ -7,6 +7,7 @@ use CoreCMF\Socialite\Http\Driver\Qq;
 use CoreCMF\Socialite\Http\Driver\Wechat;
 use CoreCMF\Socialite\Http\Driver\WechatWeb;
 use CoreCMF\Socialite\Http\Driver\Weibo;
+use CoreCMF\Socialite\Http\Driver\Douban;
 
 class DriverServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,12 @@ class DriverServiceProvider extends ServiceProvider
          })->extend('weibo', function ($app) {
               $config = $app['config']['services.weibo'];
               return new Weibo(
+                  $app['request'], $config['client_id'],
+                  $config['client_secret'], $config['redirect']
+              );
+         })->extend('douban', function ($app) {
+              $config = $app['config']['services.douban'];
+              return new Douban(
                   $app['request'], $config['client_id'],
                   $config['client_secret'], $config['redirect']
               );
