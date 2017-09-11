@@ -31,7 +31,7 @@ class ConfigController extends Controller
                   ->item(['name' => 'service',      'type' => 'text',     'label' => '驱动标识',     'value'=> $configs->service,'disabled'=>true])
                   ->item(['name' => 'client_id',    'type' => 'text',     'label' => '客户ID',      'value'=> $configs->client_id])
                   ->item(['name' => 'client_secret','type' => 'text',     'label' => '客户密钥',     'value'=> $configs->client_secret])
-                  ->item(['name' => 'redirect',     'type' => 'text',     'label' => '回调地址',     'value'=> $configs->redirect])
+                  ->item(['name' => 'redirect',     'type' => 'text',     'label' => '回调地址',     'value'=> $configs->redirect,'disabled'=>true])
                   ->apiUrl('submit',route('api.socialite.config.update'))
                   ->config('labelWidth','100px');
         $html = resolve('builderHtml')
