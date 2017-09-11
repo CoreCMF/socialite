@@ -7,7 +7,6 @@ use Laravel\Socialite\Two\User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\ProviderInterface;
 
-
 class WechatWeb extends AbstractProvider implements ProviderInterface
 {
     /**
@@ -40,11 +39,7 @@ class WechatWeb extends AbstractProvider implements ProviderInterface
      */
     protected function getAuthUrl($state)
     {
-        //return $this->buildAuthUrlFromBase('https://open.weixin.qq.com/connect/qrconnect', $state);
-        return $this->buildAuthUrlFromBase($this->getConfig(
-            'auth_base_uri',
-            'https://open.weixin.qq.com/connect/qrconnect'
-        ), $state);
+        return $this->buildAuthUrlFromBase('https://open.weixin.qq.com/connect/qrconnect', $state);
     }
 
     /**
@@ -132,8 +127,4 @@ class WechatWeb extends AbstractProvider implements ProviderInterface
         return $this->credentialsResponseBody;
     }
 
-    public static function additionalConfigKeys()
-    {
-        return ['auth_base_uri'];
-    }
 }
