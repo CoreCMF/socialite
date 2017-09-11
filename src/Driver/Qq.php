@@ -2,13 +2,12 @@
 
 namespace CoreCMF\Socialite\Driver;
 
-use Exception;
 use Illuminate\Support\Arr;
 use Laravel\Socialite\Two\User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\ProviderInterface;
 
-class QqProvider extends AbstractProvider implements ProviderInterface
+class Qq extends AbstractProvider implements ProviderInterface
 {
     /**
      * The scopes being requested.
