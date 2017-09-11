@@ -1,6 +1,8 @@
 <?php
 
-namespace CoreCMF\Socialite\Models;
+namespace CoreCMF\Socialite\Http\Models;
+
+use Schema;
 use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
@@ -19,12 +21,14 @@ class Config extends Model
      */
     public function configRegister()
     {
-        $this->where('status', 1)->get()->map(function($item){
-            config(['services.'.$item->service => [
-                'client_id' => $item->client_id,
-                'client_secret' => $item->client_secret,
-                'redirect' => $item->redirect
-              ]]);
-        });
+        if (Schema::hasTable('socialite_configs')) {
+            $this->where('status', 1)->get()->map(function($item){
+                config(['services.'.$item->service => [
+                    'client_id' => $item->client_id,
+                    'client_secret' => $item->client_secret,
+                    'redirect' => $item->redirect
+                  ]]);
+            });
+        }
     }
 }

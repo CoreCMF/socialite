@@ -1,8 +1,8 @@
 <?php
 
-namespace CoreCMF\Socialite\Listeners;
+namespace CoreCMF\Socialite\Http\Listeners;
 
-use CoreCMF\Socialite\Models\Config;
+use CoreCMF\Socialite\Http\Models\Config;
 /**
  * [SocialiteEventSubscriber 社会登录事件订阅者]
  */
@@ -73,11 +73,11 @@ class SocialiteEventSubscriber
     {
         $events->listen(
             'CoreCMF\Core\Events\BuilderForm',
-            'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderFormLogin'
+            'CoreCMF\Socialite\Http\Listeners\SocialiteEventSubscriber@onBuilderFormLogin'
         );
         $events->listen(
             'CoreCMF\Core\Events\BuilderTable',
-            'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber@onBuilderTablePackage'
+            'CoreCMF\Socialite\Http\Listeners\SocialiteEventSubscriber@onBuilderTablePackage'
         );
     }
 

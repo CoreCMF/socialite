@@ -4,13 +4,13 @@ namespace CoreCMF\Socialite;
 
 use Socialite;
 use Illuminate\Support\ServiceProvider;
-use CoreCMF\Socialite\Models\Config;
+use CoreCMF\Socialite\Http\Models\Config;
 
 class SocialiteServiceProvider extends ServiceProvider
 {
     protected $commands = [
-        \CoreCMF\Socialite\Console\InstallCommand::class,
-        \CoreCMF\Socialite\Console\UninstallCommand::class,
+        \CoreCMF\Socialite\Http\Console\InstallCommand::class,
+        \CoreCMF\Socialite\Http\Console\UninstallCommand::class,
     ];
     /**
      * Perform post-registration booting of services.

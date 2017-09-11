@@ -32,6 +32,6 @@ class EventServiceProvider extends ServiceProvider
      * @var [type]
      */
     protected $subscribe = [
-         'CoreCMF\Socialite\Listeners\SocialiteEventSubscriber',
+         'CoreCMF\Socialite\Http\Listeners\SocialiteEventSubscriber',
     ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreCMF\Socialite\Driver;
+namespace CoreCMF\Socialite\Http\Driver;
 
 use Illuminate\Support\Arr;
 use Laravel\Socialite\Two\User;

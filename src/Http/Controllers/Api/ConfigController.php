@@ -7,7 +7,7 @@ use CoreCMF\Core\Support\Http\Request as CoreRequest;
 use Illuminate\Container\Container;
 
 use App\Http\Controllers\Controller;
-use CoreCMF\Socialite\Models\Config;
+use CoreCMF\Socialite\Http\Models\Config;
 
 class ConfigController extends Controller
 {
