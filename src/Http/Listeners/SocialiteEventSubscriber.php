@@ -72,11 +72,11 @@ class SocialiteEventSubscriber
     public function subscribe($events)
     {
         $events->listen(
-            'CoreCMF\Core\Events\BuilderForm',
+            'CoreCMF\Core\Support\Events\BuilderForm',
             'CoreCMF\Socialite\Http\Listeners\SocialiteEventSubscriber@onBuilderFormLogin'
         );
         $events->listen(
-            'CoreCMF\Core\Events\BuilderTable',
+            'CoreCMF\Core\Support\Events\BuilderTable',
             'CoreCMF\Socialite\Http\Listeners\SocialiteEventSubscriber@onBuilderTablePackage'
         );
     }
