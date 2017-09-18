@@ -11,6 +11,6 @@ class User extends Model
 
     public function users()
     {
-        return $this->belongsTo(\CoreCMF\Core\Http\Models\User::class,'user_id');
+        return $this->belongsTo(\CoreCMF\Core\App\Models\User::class,'user_id');
     }
 }
