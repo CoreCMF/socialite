@@ -53,7 +53,7 @@ class SocialiteEventSubscriber
     public function onBuilderTablePackage($event)
     {
         $table = $event->table;
-        if ($table->event == 'package') {
+        if ($table->event == 'adminPackage') {
             $table->data->transform(function ($item, $key) {
                 if ($item->name == 'Socialite') {
                     $item->rightButton = [
