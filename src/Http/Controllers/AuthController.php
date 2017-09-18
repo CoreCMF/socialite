@@ -7,8 +7,8 @@ use Socialite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\Http\Models\User as SocialiteUser;
-use CoreCMF\Core\Models\User;
-use CoreCMF\Core\Models\Upload;
+use CoreCMF\Core\Http\Models\User;
+use CoreCMF\Core\Http\Models\Upload;
 
 class AuthController extends Controller
 {
