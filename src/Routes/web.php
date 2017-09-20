@@ -15,7 +15,7 @@
 | Admin后台路由设置 routes
 |--------------------------------------------------------------------------
 */
-Route::group(['prefix' => 'OAuth', 'middleware' => 'web', 'namespace' => 'CoreCMF\Socialite\Http\Controllers', 'as' => 'OAuth.'], function () {
+Route::group(['prefix' => 'OAuth', 'middleware' => 'web', 'namespace' => 'CoreCMF\Socialite\App\Http\Controllers', 'as' => 'OAuth.'], function () {
     Route::get('{service}/callback',        [ 'as' => 'callback', 'uses' => 'AuthController@handleProviderCallback']);
     Route::get('{service}/{redirect?}',     [ 'as' => 'redirect', 'uses' => 'AuthController@redirectToProvider']);
 });

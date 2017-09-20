@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreCMF\Socialite\Http\Models;
+namespace CoreCMF\Socialite\App\Models;
 
 use Schema;
 use Illuminate\Database\Eloquent\Model;

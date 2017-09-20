@@ -1,6 +1,6 @@
 <?php
 
-namespace CoreCMF\Socialite\Http\Console;
+namespace CoreCMF\Socialite\App\Console;
 
 use Illuminate\Console\Command;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace CoreCMF\Socialite\Http\Controllers;
+namespace CoreCMF\Socialite\App\Http\Controllers;
 
 use Auth;
 use Socialite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use CoreCMF\Socialite\Http\Models\User as SocialiteUser;
+use CoreCMF\Socialite\App\Models\User as SocialiteUser;
 use CoreCMF\Core\App\Models\User;
 use CoreCMF\Core\App\Models\Upload;
 

@@ -3,11 +3,11 @@
 namespace CoreCMF\Socialite\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use CoreCMF\Socialite\Http\Driver\Qq;
-use CoreCMF\Socialite\Http\Driver\Wechat;
-use CoreCMF\Socialite\Http\Driver\WechatWeb;
-use CoreCMF\Socialite\Http\Driver\Weibo;
-use CoreCMF\Socialite\Http\Driver\Douban;
+use CoreCMF\Socialite\App\Driver\Qq;
+use CoreCMF\Socialite\App\Driver\Wechat;
+use CoreCMF\Socialite\App\Driver\WechatWeb;
+use CoreCMF\Socialite\App\Driver\Weibo;
+use CoreCMF\Socialite\App\Driver\Douban;
 
 class DriverServiceProvider extends ServiceProvider
 {
