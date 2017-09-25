@@ -16,72 +16,73 @@ class ConfigTableSeeder extends Seeder
         DB::table('socialite_configs')->insert([
             'name' => '微信',
             'service' => 'wechat',
-            'redirect'=> 'http://corecmf.dev/OAuth/wechat/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'wechat']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => 'QQ',
             'service' => 'qq',
-            'redirect'=> 'http://corecmf.dev/OAuth/qq/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'qq']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => '微信WEB',
             'service' => 'wechatweb',
-            'redirect'=> 'http://corecmf.dev/OAuth/wechatweb/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'wechatweb']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => '微博',
             'service' => 'weibo',
-            'redirect'=> 'http://corecmf.dev/OAuth/weibo/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'weibo']),
         ]);
         // DB::table('socialite_configs')->insert([
         //     'name' => '人人',
         //     'service' => 'renren',
-        //     'redirect'=> 'http://corecmf.dev/OAuth/renren/callback',
+        //     'redirect'=> route('OAuth.callback',['service' => 'renren']),
         // ]);
         DB::table('socialite_configs')->insert([
             'name' => '豆瓣',
             'service' => 'douban',
-            'redirect'=> 'http://corecmf.dev/OAuth/douban/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'douban']),
         ]);
         // DB::table('socialite_configs')->insert([
         //     'name' => '百度',
         //     'service' => 'baidu',
-        //     'redirect'=> 'http://corecmf.dev/OAuth/baidu/callback',
+        //     'redirect'=> route('OAuth.callback',['service' => 'baidu']),
         // ]);
         // DB::table('socialite_configs')->insert([
         //     'name' => '支付宝',
         //     'service' => 'alipay',
-        //     'redirect'=> 'http://corecmf.dev/OAuth/alipay/callback',
+        //     'redirect'=> route('OAuth.callback',['service' => 'alipay']),
         // ]);
         // DB::table('socialite_configs')->insert([
         //     'name' => '淘宝',
         //     'service' => 'taobao',
-        //     'redirect'=> 'http://corecmf.dev/OAuth/taobao/callback',
+        //     'redirect'=> route('OAuth.callback',['service' => 'taobao']),
         // ]);
         DB::table('socialite_configs')->insert([
             'name' => 'GitHub',
             'service' => 'github',
-            'redirect'=> 'http://corecmf.dev/OAuth/github/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'github']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => 'FaceBook',
             'service' => 'facebook',
-            'redirect'=> 'http://corecmf.dev/OAuth/facebook/callback',
+
+            'redirect'=> route('OAuth.callback',['service' => 'facebook']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => 'Google',
             'service' => 'google',
-            'redirect'=> 'http://corecmf.dev/OAuth/google/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'google']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => 'Linkedin',
             'service' => 'linkedin',
-            'redirect'=> 'http://corecmf.dev/OAuth/linkedin/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'linkedin']),
         ]);
         DB::table('socialite_configs')->insert([
             'name' => 'Twitter',
             'service' => 'twitter',
-            'redirect'=> 'http://corecmf.dev/OAuth/twitter/callback',
+            'redirect'=> route('OAuth.callback',['service' => 'twitter']),
         ]);
     }
 }
