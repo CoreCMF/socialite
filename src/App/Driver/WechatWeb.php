@@ -126,5 +126,4 @@ class WechatWeb extends AbstractProvider implements ProviderInterface
         //return $this->parseAccessToken($response->getBody());
         return $this->credentialsResponseBody;
     }
-
 }

@@ -2,7 +2,8 @@
 
 namespace CoreCMF\Socialite;
 
-use Socialite;
+// use AliasLoader;
+use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
 use CoreCMF\Socialite\App\Models\Config;
 
@@ -42,7 +43,6 @@ class SocialiteServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
     }
     /**
      * 初始化服务
@@ -63,6 +63,11 @@ class SocialiteServiceProvider extends ServiceProvider
         $providers = config('socialite.providers');
         foreach ($providers as $provider) {
             $this->app->register($provider);
+        }
+        $aliases = config('socialite.aliases');
+        $loader = AliasLoader::getInstance();
+        foreach ($aliases as $key => $alias) {
+            $loader->alias($key, $alias);
         }
     }
     /**

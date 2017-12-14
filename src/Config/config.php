@@ -14,4 +14,7 @@ return [
         CoreCMF\Socialite\Providers\EventServiceProvider::class,//事件服务
         CoreCMF\Socialite\Providers\DriverServiceProvider::class,//驱动服务
     ],
+    'aliases' => [
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+    ],
 ];

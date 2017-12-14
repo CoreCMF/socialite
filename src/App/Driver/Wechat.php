@@ -7,7 +7,6 @@ use Laravel\Socialite\Two\User;
 use Laravel\Socialite\Two\AbstractProvider;
 use Laravel\Socialite\Two\ProviderInterface;
 
-
 class Wechat extends AbstractProvider implements ProviderInterface
 {
 
