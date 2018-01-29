@@ -43,6 +43,23 @@
     "extra": {
         "branch-alias": {
             "dev-master": "2.3.x-dev"
+        },
+        "corecmf": {
+            "name": "Socialite",
+            "title": "社会第三方登录",
+            "description": "社会第三方登录插件,引用Laravel\\Socialite服务,可以实现QQ、微信、新浪、淘宝、支付宝、github等主流第三方登录。",
+            "author": "BigRocs",
+            "version": "2.3.2",
+            "providers": [
+                "Laravel\\Socialite\\SocialiteServiceProvider",
+                "CoreCMF\\Socialite\\Providers\\EventServiceProvider",
+                "CoreCMF\\Socialite\\Providers\\DriverServiceProvider"
+            ],
+            "aliases": [
+                "Laravel\\Socialite\\Facades\\Socialite"
+            ],
+            "install": "corecmf:storage:install",
+            "uninstall": "corecmf:storage:uninstall"
         }
     },
     "config": {
