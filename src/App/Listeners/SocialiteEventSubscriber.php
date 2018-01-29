@@ -3,6 +3,7 @@
 namespace CoreCMF\Socialite\App\Listeners;
 
 use CoreCMF\Socialite\App\Models\Config;
+
 /**
  * [SocialiteEventSubscriber 社会登录事件订阅者]
  */
@@ -10,8 +11,9 @@ class SocialiteEventSubscriber
 {
     private $configModel;
 
-    public function __construct(Config $configPro){
-       $this->configModel = $configPro;
+    public function __construct(Config $configPro)
+    {
+        $this->configModel = $configPro;
     }
     /**
      * 处理BuilderForm登录页面渲染
@@ -23,12 +25,12 @@ class SocialiteEventSubscriber
         $form = $event->form;
         if ($form->event == 'login') {
             $html = null;
-            $redirect = array_key_exists('redirect',$form->config)? encrypt($form->config['redirect']): null;
+            $redirect = array_key_exists('redirect', $form->config)? encrypt($form->config['redirect']): null;
 
             $configs = $this->configModel->where('status', 1)->get();
             foreach ($configs as $key => $config) {
                 $url = '/OAuth/service/';
-                $url = str_replace("service",$config['service'],$url); //驱动替换后期放到model里面处理
+                $url = str_replace("service", $config['service'], $url); //驱动替换后期放到model里面处理
                 if ($redirect) {
                     $url .= $redirect;
                 }
@@ -57,7 +59,13 @@ class SocialiteEventSubscriber
             $table->data->transform(function ($item, $key) {
                 if ($item->name == 'Socialite') {
                     $item->rightButton = [
-                        ['title'=>'配置编辑','apiUrl'=> route('api.socialite.config.index'),'type'=>'info', 'icon'=>'fa fa-edit']
+                        [
+                            'title'=>'配置编辑',
+                            'apiUrl'=> route('api.socialite.config.index'),
+                            'type'=>'info',
+                            'icon'=>'fa fa-edit',
+                            'method'=>'dialog'
+                        ]
                     ];
                 }
                 return $item;
@@ -80,5 +88,4 @@ class SocialiteEventSubscriber
             'CoreCMF\Socialite\App\Listeners\SocialiteEventSubscriber@onBuilderTablePackage'
         );
     }
-
 }

@@ -51,6 +51,7 @@
             "author": "BigRocs",
             "version": "2.3.2",
             "providers": [
+                "CoreCMF\\Socialite\\SocialiteServiceProvider",
                 "Laravel\\Socialite\\SocialiteServiceProvider",
                 "CoreCMF\\Socialite\\Providers\\EventServiceProvider",
                 "CoreCMF\\Socialite\\Providers\\DriverServiceProvider"
@@ -58,8 +59,8 @@
             "aliases": [
                 "Laravel\\Socialite\\Facades\\Socialite"
             ],
-            "install": "corecmf:storage:install",
-            "uninstall": "corecmf:storage:uninstall"
+            "install": "corecmf:socialite:install",
+            "uninstall": "corecmf:socialite:uninstall"
         }
     },
     "config": {

@@ -27,8 +27,6 @@ class SocialiteServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
         //迁移文件配置
         $this->loadMigrationsFrom(__DIR__.'/Databases/migrations');
-        // 加载配置
-        $this->mergeConfigFrom(__DIR__.'/Config/config.php', 'socialite');
         //设置发布前端文件
         $this->publishes([
             __DIR__.'/../resources/vendor/' => public_path('vendor'),
@@ -51,24 +49,7 @@ class SocialiteServiceProvider extends ServiceProvider
     {
         $config = new Config();
         $config->configRegister();//注册配置信息
-        //注册providers服务
-        $this->registerProviders();
         $this->viewShare();
-    }
-    /**
-     * 注册引用服务
-     */
-    public function registerProviders()
-    {
-        $providers = config('socialite.providers');
-        foreach ($providers as $provider) {
-            $this->app->register($provider);
-        }
-        $aliases = config('socialite.aliases');
-        $loader = AliasLoader::getInstance();
-        foreach ($aliases as $key => $alias) {
-            $loader->alias($key, $alias);
-        }
     }
     /**
      * [viewShare 视图共享数据]
