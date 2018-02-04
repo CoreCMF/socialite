@@ -17,29 +17,9 @@
 <body>
     <div id=app class="scanqWap">
         <div class="main">
-            <a href="#">
+            <a v-for="(url,service) in socialite" :href="url">
                 <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-wechat"></use>
-                </svg>
-            </a>
-            <a href="#">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-qq"></use>
-                </svg>
-            </a>
-            <a href="#">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-github"></use>
-                </svg>
-            </a>
-            <a href="#">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-alipay"></use>
-                </svg>
-            </a>
-            <a href="#">
-                <svg class="icon" aria-hidden="true">
-                    <use xlink:href="#icon-weibo"></use>
+                    <use :xlink:href="'#icon-' + service"></use>
                 </svg>
             </a>
             <div class="state">
@@ -53,6 +33,13 @@
         var Main = {
             data() {
               return {
+                  socialite: {
+                      @if (!empty($socialite))
+                        @foreach ($socialite as $service => $url)
+                                {{ $service }}: "{{ $url }}",
+                        @endforeach
+                      @endif
+                  },
               };
             },
             mounted() {
@@ -60,7 +47,7 @@
             },
             methods: {
               init() {
-
+                  console.log(this.socialite);
               }
             }
           };

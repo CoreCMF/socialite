@@ -8,23 +8,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\App\Models\User as SocialiteUser;
 use CoreCMF\Core\App\Models\User;
+use CoreCMF\Socialite\App\Models\Config;
 use CoreCMF\Core\App\Models\Upload;
 
 class AuthController extends Controller
 {
     private $request;
     private $userModel;
+    private $configModel;
     private $uploadModel;
     private $socialiteUserModel;
 
     public function __construct(
       Request $request,
       User $userRepo,
+      Config $configRepo,
       Upload $uploadRepo,
       SocialiteUser $socialiteUserRepo
     ) {
         $this->request = $request;
         $this->userModel = $userRepo;
+        $this->configModel = $configRepo;
         $this->uploadModel = $uploadRepo;
         $this->socialiteUserModel = $socialiteUserRepo;
     }
@@ -70,8 +74,14 @@ class AuthController extends Controller
     public function scanWapLogin($sessionId)
     {
         $configs = $this->configModel->where('status', 1)->get();
-        return view('socialite::scanWapLogin');
-        dd($sessionId);
+        $socialite = $configs->mapWithKeys(function ($config) {
+            return [
+                $config['service'] => route('OAuth.redirect', [
+                    'service' => $config['service']
+                ])
+            ];
+        })->toArray();
+        return view('socialite::scanWapLogin', ['socialite' => $socialite]);
     }
     /**
      * 从Provider获取用户信息.
