@@ -56,9 +56,9 @@
                 "CoreCMF\\Socialite\\Providers\\EventServiceProvider",
                 "CoreCMF\\Socialite\\Providers\\DriverServiceProvider"
             ],
-            "aliases": [
-                "Laravel\\Socialite\\Facades\\Socialite"
-            ],
+            "aliases": {
+                "Socialite": "Laravel\\Socialite\\Facades\\Socialite"
+            },
             "install": "corecmf:socialite:install",
             "uninstall": "corecmf:socialite:uninstall"
         }
