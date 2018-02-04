@@ -26,14 +26,12 @@ class SocialiteEventSubscriber
         if ($form->event == 'login') {
             $html = null;
             $redirect = array_key_exists('redirect', $form->config)? encrypt($form->config['redirect']): null;
-
             $configs = $this->configModel->where('status', 1)->get();
             foreach ($configs as $key => $config) {
-                $url = '/OAuth/service/';
-                $url = str_replace("service", $config['service'], $url); //驱动替换后期放到model里面处理
-                if ($redirect) {
-                    $url .= $redirect;
-                }
+                $url = route('OAuth.redirect', [
+                    'service' => $config['service'],
+                    'redirect' => $redirect,
+                ]);
                 $html .= '<a href="'.$url.'">
                             <svg class="icon" aria-hidden="true">
                                 <use xlink:href="#icon-'.$config['service'].'"></use>
