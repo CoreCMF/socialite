@@ -22,7 +22,7 @@ class AuthController extends Controller
       User $userRepo,
       Upload $uploadRepo,
       SocialiteUser $socialiteUserRepo
-    ){
+    ) {
         $this->request = $request;
         $this->userModel = $userRepo;
         $this->uploadModel = $uploadRepo;
@@ -38,7 +38,40 @@ class AuthController extends Controller
         $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
         return Socialite::driver($service)->redirect();
     }
-
+    /**
+     * [scanLogin pc手机扫码登录]
+     * @param    [type]         $redirect [回调网址]
+     * @return   [type]                   [description]
+     * @Author   bigrocs
+     * @QQ       532388887
+     * @Email    bigrocs@qq.com
+     * @DateTime 2018-02-04
+     */
+    public function scanLogin($redirect=null)
+    {
+        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        $sessionId = session()->getId();
+        $QRcode = route('OAuth.Scan.wap') . DIRECTORY_SEPARATOR . $sessionId;
+        $data = [
+            'sessionId' => $sessionId,
+            'QRcode' => $QRcode
+        ];
+        return view('socialite::scanLogin', $data);
+    }
+    /**
+     * [scanWapLogin wap扫码后页面]
+     * @param    [type]         $id [description]
+     * @return   [type]             [description]
+     * @Author   bigrocs
+     * @QQ       532388887
+     * @Email    bigrocs@qq.com
+     * @DateTime 2018-02-04
+     */
+    public function scanWapLogin($sessionId)
+    {
+        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        dd($sessionId);
+    }
     /**
      * 从Provider获取用户信息.
      *
@@ -49,8 +82,8 @@ class AuthController extends Controller
         $socialiteUser = Socialite::driver($service)->user();
         $socialite = $this->socialiteUserModel->where($service, $socialiteUser->id)->with('users')->first();
         if (empty($socialite)) {
-            $user = $this->createUser($service,$socialiteUser);//创建用户
-        }else{
+            $user = $this->createUser($service, $socialiteUser);//创建用户
+        } else {
             $user = $socialite->users;
         }
         Auth::login($user);
@@ -59,7 +92,7 @@ class AuthController extends Controller
     /**
      * 创建用户
      */
-    private function createUser($service,$socialiteUser)
+    private function createUser($service, $socialiteUser)
     {
         $user = Auth::user();//获取当前用户 如果没有用户注册新用户
         if (!$user) {
@@ -72,7 +105,7 @@ class AuthController extends Controller
             $user = $this->userModel->create($input);//创建用户
             //保存头像
             $imgName = $service.'_'.$socialiteUser->id;//保存头像名称
-            $avatarId = $this->uploadModel->imageRemote($socialiteUser->avatar,$imgName,'avatar')['uploadData']->id;
+            $avatarId = $this->uploadModel->imageRemote($socialiteUser->avatar, $imgName, 'avatar')['uploadData']->id;
             $user->userInfos()->create(['avatar' => $avatarId]);//插入关联头像图片id
         }
         $socialite = $this->socialiteUserModel->where('user_id', $user->id)->first();
@@ -80,7 +113,7 @@ class AuthController extends Controller
             //已绑定用户增加绑定新的第三方
             $update = $this->socialiteUserModel->where('user_id', $user->id)->update([$service => $socialiteUser->id]);
             return $update? $user: false;
-        }else{
+        } else {
             // 关联用户
             $this->socialiteUserModel->$service = $socialiteUser->id;
             $this->socialiteUserModel->user_id  = $user->id;
