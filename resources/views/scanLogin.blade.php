@@ -15,7 +15,36 @@
     <link href={{ asset('/vendor/socialite/css/app.css') }} rel=stylesheet>
 </head>
 <body>
-    <div id=app></div>
-    <script type=text/javascript src={{ asset('/vendor/js/vue.js') }}></script>
+    <div id=app class="scanQrcode">
+        <div class="main">
+            <div id="qrcode" class="qrcode"></div>
+            <div class="state">
+                使用手机扫码登录
+            </div>
+        </div>
+    </div>
+    <script type=text/javascript src={{ asset('/js/vue.js') }}></script>
+    <script type=text/javascript src={{ asset('/js/qrcode.js') }}></script>
+    <script type="text/javascript">
+        var Main = {
+            data() {
+              return {
+                sessionId: "{{ $sessionId }}",
+                QRcode: "{{ $QRcode }}"
+              };
+            },
+            mounted() {
+                this.init()
+            },
+            methods: {
+              init() {
+                  new QRCode(document.getElementById("qrcode"), this.QRcode);
+              }
+            }
+          };
+        var Ctor = Vue.extend(Main)
+        new Ctor().$mount('#app')
+    </script>
+
 </body>
 </html>
