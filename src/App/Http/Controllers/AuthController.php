@@ -69,7 +69,8 @@ class AuthController extends Controller
      */
     public function scanWapLogin($sessionId)
     {
-        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        $configs = $this->configModel->where('status', 1)->get();
+        return view('socialite::scanWapLogin');
         dd($sessionId);
     }
     /**
