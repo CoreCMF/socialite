@@ -12,7 +12,23 @@
         <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href={{ asset('/vendor/socialite/css/app.css') }} rel=stylesheet>
+    <!-- 渲染插件Css -->
+@if (!empty($resources['css']))
+  @foreach ($resources['css'] as $css)
+  <link href={{ $css }} rel=stylesheet>
+  @endforeach
+@endif
+<script>
+    window.config = {
+        csrfToken:'{{ csrf_token() }}',
+        userId: {{ empty(Auth::id())? 0: Auth::id()  }},
+@if (!empty($resources['config']))
+@foreach ($resources['config'] as $key => $config)
+      {{ $key }}: {!! json_encode($config) !!},
+@endforeach
+@endif
+    }
+</script>
 </head>
 <body>
     <div id=app class="scanQrcode">
@@ -45,6 +61,12 @@
         var Ctor = Vue.extend(Main)
         new Ctor().$mount('#app')
     </script>
-
+    <!-- 渲染插件Js Begin -->
+@if (!empty($resources['js']))
+  @foreach ($resources['js'] as $js)
+  <script type=text/javascript src={{ $js }}></script>
+  @endforeach
+@endif
+    <!-- 渲染插件Js End -->
 </body>
 </html>
