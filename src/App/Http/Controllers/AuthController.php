@@ -10,6 +10,7 @@ use CoreCMF\Socialite\App\Models\User as SocialiteUser;
 use CoreCMF\Core\App\Models\User;
 use CoreCMF\Socialite\App\Models\Config;
 use CoreCMF\Core\App\Models\Upload;
+use CoreCMF\Socialite\App\Events\LoginBroadcasting;
 
 class AuthController extends Controller
 {
@@ -60,6 +61,7 @@ class AuthController extends Controller
             'sessionId' => $sessionId,
             'QRcode' => $QRcode
         ];
+        // dd(session('userId'));
         return view('socialite::scanLogin', $data);
     }
     /**
@@ -73,11 +75,18 @@ class AuthController extends Controller
      */
     public function scanWapLogin($sessionId)
     {
+        if (Auth::id()) {
+            event(new LoginBroadcasting($sessionId));//登录成功广播事件
+            // dd($_COOKIE['laravel_session']);
+            // dd(session('userId'), session()->getId());
+        }
+        dd('a');
         $configs = $this->configModel->where('status', 1)->get();
-        $socialite = $configs->mapWithKeys(function ($config) {
+        $socialite = $configs->mapWithKeys(function ($config) use ($sessionId) {
             return [
                 $config['service'] => route('OAuth.redirect', [
-                    'service' => $config['service']
+                    'service' => $config['service'],
+                    'redirect' => encrypt(route('OAuth.Scan.wap').DIRECTORY_SEPARATOR.$sessionId)
                 ])
             ];
         })->toArray();
