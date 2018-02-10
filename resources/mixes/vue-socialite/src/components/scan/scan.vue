@@ -38,6 +38,21 @@ export default {
         this.QRcode = Response.data.config.QRcode
       }
       this.$store.dispatch('getData', {apiUrl, thenFunction})
+    },
+    getBroadcast () {
+      return {
+        channel: 'App.User.' + window.config.userId,
+        type: 'private'
+      }
+    },
+    getEventHandlers () {
+      return {
+        'CoreCMF\\Omnipay\\App\\Events\\OrderStatusUpdated': response => {
+          if (this.order.order_id === response.order.order_id) {
+            this.responseOrder = response.order
+          }
+        }
+      }
     }
   },
   mounted () {
