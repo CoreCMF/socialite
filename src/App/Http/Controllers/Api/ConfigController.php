@@ -13,12 +13,13 @@ class ConfigController extends Controller
 {
     private $configModel;
 
-    public function __construct(Config $configPro){
-       $this->configModel = $configPro;
+    public function __construct(Config $configPro)
+    {
+        $this->configModel = $configPro;
     }
     public function index(CoreRequest $request)
     {
-        $service  = $request->get('tabIndex','wechat');
+        $service  = $request->get('tabIndex', 'wechat');
         $configs = $this->configModel->where('service', '=', $service)->first();
 
         $configAll = $this->configModel->all();
@@ -32,8 +33,8 @@ class ConfigController extends Controller
                   ->item(['name' => 'client_id',    'type' => 'text',     'label' => '客户ID',      'value'=> $configs->client_id])
                   ->item(['name' => 'client_secret','type' => 'text',     'label' => '客户密钥',     'value'=> $configs->client_secret])
                   ->item(['name' => 'redirect',     'type' => 'text',     'label' => '回调地址',     'value'=> $configs->redirect,'disabled'=>true])
-                  ->apiUrl('submit',route('api.socialite.config.update'))
-                  ->config('labelWidth','100px');
+                  ->apiUrl('submit', route('api.admin.socialite.config.update'))
+                  ->config('labelWidth', '100px');
         $html = resolve('builderHtml')
                   ->title('Socialite配置')
                   ->item($form)
@@ -48,7 +49,7 @@ class ConfigController extends Controller
               'message'   => '配置保存成功!',
               'type'      => 'success',
             ];
-        }else{
+        } else {
             $message = [
               'message'   => '配置保存失败!',
               'type'      => 'error',
@@ -56,5 +57,4 @@ class ConfigController extends Controller
         }
         return resolve('builderHtml')->message($message)->response();
     }
-
 }
