@@ -14,8 +14,10 @@
 </template>
 
 <script>
+import echo from '../mixins/echo'
 export default {
   name: 'socialite-scan',
+  mixins: [echo],
   data () {
     return {
       QRcode: null,
