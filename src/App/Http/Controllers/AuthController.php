@@ -43,27 +43,7 @@ class AuthController extends Controller
         $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
         return Socialite::driver($service)->redirect();
     }
-    /**
-     * [scanLogin pc手机扫码登录]
-     * @param    [type]         $redirect [回调网址]
-     * @return   [type]                   [description]
-     * @Author   bigrocs
-     * @QQ       532388887
-     * @Email    bigrocs@qq.com
-     * @DateTime 2018-02-04
-     */
-    public function scanLogin($redirect=null)
-    {
-        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
-        $sessionId = session()->getId();
-        $QRcode = route('OAuth.Scan.wap') . DIRECTORY_SEPARATOR . $sessionId;
-        $data = [
-            'sessionId' => $sessionId,
-            'QRcode' => $QRcode
-        ];
-        // dd(session('userId'));
-        return view('socialite::scanLogin', $data);
-    }
+
     /**
      * [scanWapLogin wap扫码后页面]
      * @param    [type]         $id [description]
@@ -73,20 +53,17 @@ class AuthController extends Controller
      * @Email    bigrocs@qq.com
      * @DateTime 2018-02-04
      */
-    public function scanWapLogin($sessionId)
+    public function scanLogin($sessionId)
     {
         if (Auth::id()) {
             event(new LoginBroadcasting($sessionId));//登录成功广播事件
-            // dd($_COOKIE['laravel_session']);
-            // dd(session('userId'), session()->getId());
         }
-        dd('a');
         $configs = $this->configModel->where('status', 1)->get();
         $socialite = $configs->mapWithKeys(function ($config) use ($sessionId) {
             return [
                 $config['service'] => route('OAuth.redirect', [
                     'service' => $config['service'],
-                    'redirect' => encrypt(route('OAuth.Scan.wap').DIRECTORY_SEPARATOR.$sessionId)
+                    'redirect' => encrypt(route('OAuth.scan.login').DIRECTORY_SEPARATOR.$sessionId)
                 ])
             ];
         })->toArray();

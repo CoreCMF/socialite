@@ -47,7 +47,7 @@
             },
             methods: {
               init() {
-                  console.log(this.socialite);
+
               }
             }
           };
