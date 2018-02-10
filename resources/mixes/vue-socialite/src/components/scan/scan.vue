@@ -47,8 +47,8 @@ export default {
     },
     getEventHandlers () {
       return {
-        'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
-          console.log(response)
+        'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {    
+          document.cookie = "laravel_session=" + response.laravelSession
         }
       }
     }
