@@ -59,7 +59,7 @@ class SocialiteEventSubscriber
                     $item->rightButton = [
                         [
                             'title'=>'配置编辑',
-                            'apiUrl'=> route('api.socialite.config.index'),
+                            'apiUrl'=> route('api.socialite.admin.config.index'),
                             'type'=>'info',
                             'icon'=>'fa fa-edit',
                             'method'=>'dialog'

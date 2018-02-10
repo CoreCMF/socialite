@@ -33,7 +33,7 @@ class ConfigController extends Controller
                   ->item(['name' => 'client_id',    'type' => 'text',     'label' => '客户ID',      'value'=> $configs->client_id])
                   ->item(['name' => 'client_secret','type' => 'text',     'label' => '客户密钥',     'value'=> $configs->client_secret])
                   ->item(['name' => 'redirect',     'type' => 'text',     'label' => '回调地址',     'value'=> $configs->redirect,'disabled'=>true])
-                  ->apiUrl('submit', route('api.socialite.config.update'))
+                  ->apiUrl('submit', route('api.socialite.admin.config.update'))
                   ->config('labelWidth', '100px');
         $html = resolve('builderHtml')
                   ->title('Socialite配置')
