@@ -35,8 +35,6 @@ class AuthController extends Controller
     {
         $sessionId = session()->getId();
         $QRcode = route('OAuth.Scan.wap') . DIRECTORY_SEPARATOR . $sessionId;
-
-        $this->builderHtml->config('sessionId', $sessionId);
         $this->builderHtml->config('QRcode', $QRcode);
 
         return $this->builderHtml->response();

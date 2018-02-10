@@ -1,8 +1,11 @@
 <template>
-<div id=app class="qrcode">
+<div id="app" class="qrcode">
     <div class="main">
-        <div id="qrcode" class="qrcode"></div>
-
+        <bve-qrcode-item
+            v-model="QRcode"
+            :config="config"
+            v-if="QRcode"
+          />
         <div class="state">
             使用手机扫码登录
         </div>
@@ -13,6 +16,14 @@
 <script>
 export default {
   name: 'socialite-scan',
+  data () {
+    return {
+      QRcode: null,
+      config: {
+        size: 320
+      }
+    }
+  },
   computed: {
     apiUrl () {
       return this.$route.meta.apiUrl
@@ -22,7 +33,7 @@ export default {
     initData () {
       let apiUrl = this.apiUrl
       let thenFunction = (Response) => {
-        console.log(Response)
+        this.QRcode = Response.data.config.QRcode
       }
       this.$store.dispatch('getData', {apiUrl, thenFunction})
     }
@@ -48,17 +59,18 @@ body{
     >.main {
     	border-radius: 4px;
     	background-color: #FFF;
-    	padding: 30px
+    	padding: 15px;
+        >.state {
+        	margin-top: 15px;
+        	border-radius: 4px;
+        	background-color: #F56C6C;
+        	color: #FFF;
+        	padding: 20px;
+        	border: 1px solid #E4E7ED;
+        	text-align: center
+        }
     }
-    >.state {
-    	margin-top: 15px;
-    	border-radius: 4px;
-    	background-color: #F56C6C;
-    	color: #FFF;
-    	padding: 20px;
-    	border: 1px solid #E4E7ED;
-    	text-align: center
-    }
+
 }
 
 </style>
