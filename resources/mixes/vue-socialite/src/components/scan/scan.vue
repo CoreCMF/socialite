@@ -41,16 +41,14 @@ export default {
     },
     getBroadcast () {
       return {
-        channel: 'App.User.' + window.config.userId,
+        channel: 'App.User.1',
         type: 'private'
       }
     },
     getEventHandlers () {
       return {
-        'CoreCMF\\Omnipay\\App\\Events\\OrderStatusUpdated': response => {
-          if (this.order.order_id === response.order.order_id) {
-            this.responseOrder = response.order
-          }
+        'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
+          console.log(response)
         }
       }
     }

@@ -8,10 +8,10 @@ export default {
       let broadcast = this.getBroadcast()
       switch (broadcast.type) {
         case 'channel':
-          this.echo = this.$root.echo.channel(broadcast.channel)
+          this.echo = window.echo.channel(broadcast.channel)
           break
         case 'private':
-          this.echo = this.$root.echo.private(broadcast.channel)
+          this.echo = window.echo.private(broadcast.channel)
           break
       }
       forIn(this.getEventHandlers(), (handler, eventName) => {

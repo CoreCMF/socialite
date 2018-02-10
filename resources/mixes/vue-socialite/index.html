@@ -9,7 +9,8 @@
   <script>
     window.config = {
       apiUrl: 'http://corecmf.test/api/socialite/main',
-      csrfToken: ''
+      csrfToken: '',
+      broadcast: {"broadcaster":"socket.io","host":"corecmf.test:6001"},
     }
   </script>
 </head>
@@ -17,6 +18,8 @@
 <body>
   <div id="app"></div>
   <!-- built files will be auto injected -->
+  <script type=text/javascript src=//corecmf.test:6001/socket.io/socket.io.js></script>
+  <script type=text/javascript src=http://corecmf.test/vendor/socialite/js/iconfont.js></script>
 </body>
 
 </html>
