@@ -43,7 +43,20 @@ class AuthController extends Controller
         $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
         return Socialite::driver($service)->redirect();
     }
-
+    /**
+     * [scan pc手机扫码登录]
+     * @param    [type]         $redirect [回调网址]
+     * @return   [type]                   [description]
+     * @Author   bigrocs
+     * @QQ       532388887
+     * @Email    bigrocs@qq.com
+     * @DateTime 2018-02-04
+     */
+    public function scan($redirect=null)
+    {
+        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        return view('core::index', [ 'model' => 'socialite' ]);
+    }
     /**
      * [scanWapLogin wap扫码后页面]
      * @param    [type]         $id [description]

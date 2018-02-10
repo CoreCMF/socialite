@@ -23,7 +23,7 @@ class AuthController extends Controller
         $this->builderHtml = resolve('builderHtml')->event('socialiteAuth');        //全局统一实例
     }
     /**
-     * [scanLogin pc手机扫码登录]
+     * [scan pc手机扫码登录]
      * @param    [type]         $redirect [回调网址]
      * @return   [type]                   [description]
      * @Author   bigrocs
