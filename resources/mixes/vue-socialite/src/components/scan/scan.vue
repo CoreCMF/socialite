@@ -1,11 +1,12 @@
 <template>
 <div id="app" class="qrcode">
     <div class="main">
-        <bve-qrcode-item
-            v-model="QRcode"
-            :config="config"
-            v-if="QRcode"
-          />
+        <div id="QRcode"></div>
+        <qrcode-item
+         v-model="QRcode"
+         :config="config"
+         v-if="QRcode"
+       />
         <div class="state">
             使用手机扫码登录
         </div>
@@ -20,7 +21,7 @@ export default {
   mixins: [echo],
   data () {
     return {
-      QRcode: null,
+      QRcode: 'null',
       config: {
         size: 320
       }
@@ -47,8 +48,8 @@ export default {
     },
     getEventHandlers () {
       return {
-        'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {    
-          document.cookie = "laravel_session=" + response.laravelSession
+        'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
+          document.cookie = 'laravel_session=' + response.laravelSession
         }
       }
     }
