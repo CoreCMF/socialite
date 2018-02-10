@@ -16,13 +16,14 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CoreCMF\
     | 需要用户认证路由模块
     |--------------------------------------------------------------------------
     */
-    Route::group(['prefix' => 'socialite', 'as' => 'socialite.', 'middleware' => []], function () {
-        Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'socialite', 'as' => 'socialite.'], function () {
+        Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth:api','adminRole']], function () {
             Route::group(['prefix' => 'config', 'as' => 'config.'], function () {
                 Route::post('/', ['as' => 'index',     'uses' => 'ConfigController@index']);
                 Route::post('update', ['as' => 'update',     'uses' => 'ConfigController@update']);
             });
         });
         Route::post('main', [ 'as' => 'main', 'uses' => 'MainController@index']);
+        Route::post('scan', [ 'as' => 'scan', 'uses' => 'AuthController@scan']);
     });
 });
