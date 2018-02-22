@@ -7,7 +7,7 @@
         "socialite"
     ],
     "homepage": "https://github.com/CoreCMF/socialite",
-    "license": "laravel vue corecmf socialite",
+    "license": "MIT",
     "authors": [
         {
             "name": "bigrocs",
