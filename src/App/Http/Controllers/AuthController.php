@@ -66,18 +66,18 @@ class AuthController extends Controller
      * @Email    bigrocs@qq.com
      * @DateTime 2018-02-04
      */
-    public function scanLogin($sessionId)
+    public function scanLogin($uuid)
     {
         if (Auth::id()) {
-            event(new LoginBroadcasting($sessionId));//登录成功广播事件
+            event(new LoginBroadcasting($uuid));//登录成功广播事件
             dd(Auth::id());
         }
         $configs = $this->configModel->where('status', 1)->get();
-        $socialite = $configs->mapWithKeys(function ($config) use ($sessionId) {
+        $socialite = $configs->mapWithKeys(function ($config) use ($uuid) {
             return [
                 $config['service'] => route('OAuth.redirect', [
                     'service' => $config['service'],
-                    'redirect' => encrypt(route('OAuth.scan.login').DIRECTORY_SEPARATOR.$sessionId)
+                    'redirect' => encrypt(route('OAuth.scan.login').DIRECTORY_SEPARATOR.$uuid)
                 ])
             ];
         })->toArray();

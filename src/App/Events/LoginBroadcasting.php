@@ -9,7 +9,7 @@ class LoginBroadcasting implements ShouldBroadcast
 {
     use SerializesModels;
 
-    public $sessionId;
+    public $uuid;
     public $laravelSession;
 
     /**
@@ -18,9 +18,9 @@ class LoginBroadcasting implements ShouldBroadcast
      * @param  Order  $order
      * @return void
      */
-    public function __construct($sessionId)
+    public function __construct($uuid)
     {
-        $this->sessionId = $sessionId;
+        $this->uuid = $uuid;
         $this->laravelSession = $_COOKIE['laravel_session'];
     }
     public function broadcastOn()

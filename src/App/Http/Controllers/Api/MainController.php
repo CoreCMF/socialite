@@ -16,7 +16,7 @@ class MainController extends Controller
     public function index()
     {
         $this->builderMain->route([
-          'path'  =>  '/OAuth/Scan',
+          'path'  =>  '/OAuth/Scan/:redirect?',
           'name'  =>  'admin.login',
           'apiUrl'  =>  route('api.socialite.scan'),
           'children' => null,

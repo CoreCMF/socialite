@@ -3,6 +3,7 @@
 namespace CoreCMF\Socialite\App\Http\Controllers\Api;
 
 use Auth;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\App\Models\Config;
@@ -33,8 +34,8 @@ class AuthController extends Controller
      */
     public function scan()
     {
-        $sessionId = session()->getId();
-        $QRcode = route('OAuth.scan.login') . DIRECTORY_SEPARATOR . $sessionId;
+        $uuid = (string) Str::uuid();
+        $QRcode = route('OAuth.scan.login') . DIRECTORY_SEPARATOR . $uuid;
         $this->builderHtml->config('QRcode', $QRcode);
         return $this->builderHtml->response();
     }
