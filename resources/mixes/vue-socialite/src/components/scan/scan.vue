@@ -40,9 +40,8 @@ export default {
       }
       this.$store.dispatch('getData', {apiUrl, thenFunction})
     },
-    //配置广播频道和方式
     getBroadcast () {
-      let broadcast = this.$store.state.main.config.broadcast
+      let broadcast = this.$store.state.mainData.config.broadcast
       return {
         channel: broadcast.channel,
         type: broadcast.type
