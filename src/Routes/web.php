@@ -18,6 +18,6 @@
 Route::group(['prefix' => 'OAuth', 'middleware' => 'web', 'namespace' => 'CoreCMF\Socialite\App\Http\Controllers', 'as' => 'OAuth.'], function () {
     Route::get('{service}/callback', [ 'as' => 'callback', 'uses' => 'AuthController@handleProviderCallback']);
     Route::get('Scan/{redirect?}', [ 'as' => 'scan', 'uses' => 'AuthController@scan']);
-    Route::get('Scan/Login/{uuid}', [ 'as' => 'scan.login', 'uses' => 'AuthController@scanLogin']);
+    Route::get('Scan/Login/{uuid?}', [ 'as' => 'scan.login', 'uses' => 'AuthController@scanLogin']);
     Route::get('{service}/{redirect?}', [ 'as' => 'redirect', 'uses' => 'AuthController@redirectToProvider']);
 });
