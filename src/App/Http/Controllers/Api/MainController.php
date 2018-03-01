@@ -2,6 +2,7 @@
 
 namespace CoreCMF\Socialite\App\Http\Controllers\Api;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,6 +16,8 @@ class MainController extends Controller
     }
     public function index()
     {
+        //缓存此次访问唯一id
+        session(['uuid' => (string) Str::uuid()]);
         //配置前端路由
         $this->builderMain->route([
           'path'  =>  '/OAuth/Scan/:redirect?',
@@ -25,7 +28,7 @@ class MainController extends Controller
         ]);
         //配置前端广播频道和广播方式
         $this->builderMain->config('broadcast', [
-            'channel' => 'App.User.Login.1',
+            'channel' => 'App.User.Login.'.session('uuid'),
             'type' => 'private'
         ]);
         return resolve('builderHtml')->main($this->builderMain)->response();

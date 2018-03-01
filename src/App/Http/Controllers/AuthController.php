@@ -70,7 +70,7 @@ class AuthController extends Controller
     {
         if (Auth::id()) {
             event(new LoginBroadcasting($uuid));//登录成功广播事件
-            dd(Auth::id());
+            // dd(Auth::id());
         }
         $configs = $this->configModel->where('status', 1)->get();
         $socialite = $configs->mapWithKeys(function ($config) use ($uuid) {
