@@ -22,7 +22,10 @@ class MainController extends Controller
           'children' => null,
           'component' =>  '<socialite-scan/>'
         ]);
-
+        $this->builderMain->config('broadcast', [
+            'channel' => 'App.User.Login.1',
+            'type' => 'private'
+        ]);
         return resolve('builderHtml')->main($this->builderMain)->response();
     }
 }

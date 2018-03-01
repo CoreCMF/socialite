@@ -41,9 +41,10 @@ export default {
       this.$store.dispatch('getData', {apiUrl, thenFunction})
     },
     getBroadcast () {
+      let broadcast = this.$store.state.main.config.broadcast
       return {
-        channel: 'App.User.1',
-        type: 'private'
+        channel: broadcast.channel,
+        type: broadcast.type
       }
     },
     getEventHandlers () {
