@@ -15,6 +15,7 @@ class MainController extends Controller
     }
     public function index()
     {
+        //配置前端路由
         $this->builderMain->route([
           'path'  =>  '/OAuth/Scan/:redirect?',
           'name'  =>  'admin.login',
@@ -22,6 +23,7 @@ class MainController extends Controller
           'children' => null,
           'component' =>  '<socialite-scan/>'
         ]);
+        //配置前端广播频道和广播方式
         $this->builderMain->config('broadcast', [
             'channel' => 'App.User.Login.1',
             'type' => 'private'
