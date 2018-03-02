@@ -29,7 +29,7 @@ class MainController extends Controller
         //配置前端广播频道和广播方式
         $this->builderMain->config('broadcast', [
             'channel' => 'App.User.Login.'.session('uuid'),
-            'type' => 'private'
+            'type' => 'channel'
         ]);
         return resolve('builderHtml')->main($this->builderMain)->response();
     }

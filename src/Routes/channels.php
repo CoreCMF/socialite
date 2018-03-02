@@ -1,4 +1,5 @@
 <?php
+use CoreCMF\Socialite\App\Broadcasting\LoginChannel;
 
 /*
 |--------------------------------------------------------------------------
@@ -10,7 +11,6 @@
 | used to check if an authenticated user can listen to the channel.
 |
 */
-
-Broadcast::channel('App.User.Login.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
+Broadcast::channel('App.User.Login.{uuid}', function ($uuid) {
+    return (string) session('uuid') === (string) $uuid;
 });
