@@ -32,7 +32,8 @@ class SocialiteServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'socialite');
         //设置发布前端文件
         $this->publishes([
-            __DIR__.'/../resources/vendor/' => public_path('vendor'),
+            __DIR__.'/../resources/vendor/socialite' => public_path('vendor/socialite/other'),
+            __DIR__.'/../resources/mixes/vue-socialite/dist/vendor' => public_path('vendor'),
         ], 'socialite');
         $this->initService();
     }
@@ -61,8 +62,8 @@ class SocialiteServiceProvider extends ServiceProvider
     public function viewShare()
     {
         $builderAsset = resolve('builderAsset');
-        $builderAsset->css(asset('/vendor/socialite/css/app.css'));
-        $builderAsset->js(asset('/vendor/socialite/js/iconfont.js'));
+        $builderAsset->css(asset('/vendor/socialite/other/css/app.css'));
+        $builderAsset->js(asset('/vendor/socialite/other/js/iconfont.js'));
         view()->share('resources', $builderAsset->response());//视图共享数据
     }
 }

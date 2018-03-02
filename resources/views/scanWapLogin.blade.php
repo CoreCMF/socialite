@@ -12,7 +12,7 @@
         <script src="http://cdn.bootcss.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <link href={{ asset('/vendor/socialite/css/app.css') }} rel=stylesheet>
+    <link href={{ asset('/vendor/socialite/other/css/app.css') }} rel=stylesheet>
 </head>
 <body>
     <div id=app class="scanqWap">
@@ -28,7 +28,7 @@
         </div>
     </div>
     <script type=text/javascript src={{ asset('/js/vue.js') }}></script>
-    <script type=text/javascript src={{ asset('/vendor/socialite/js/iconfont.js') }}></script>
+    <script type=text/javascript src={{ asset('/vendor/socialite/other/js/iconfont.js') }}></script>
     <script type="text/javascript">
         var Main = {
             data() {
