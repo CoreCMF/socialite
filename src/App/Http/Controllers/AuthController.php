@@ -112,6 +112,13 @@ class AuthController extends Controller
                 'password' => str_random(10),//随机密码
                 'nickname' => $socialiteUser->nickname,
             ];
+            //方式用户名和邮箱已存在
+            if($this->userModel->findForUser($input['name'])){
+                $input['name'] = $service.'_'.$input['name'];
+            }
+            if($this->userModel->findForUser($input['email'])){
+                $input['email'] = $service.'_'.$input['email'];
+            }
             $user = $this->userModel->create($input);//创建用户
             //保存头像
             $imgName = $service.'_'.$socialiteUser->id;//保存头像名称

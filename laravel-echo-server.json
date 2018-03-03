@@ -1,0 +1,27 @@
+{
+	"authHost": "corecmf.test",
+	"authEndpoint": "/broadcasting/auth",
+	"clients": [
+		{
+			"appId": "ad5a3be366fc92df",
+			"key": "e4d21163c8b359141d0bd9f2a2f805ea"
+		}
+	],
+	"database": "sqlite",
+	"databaseConfig": {
+		"redis": {},
+		"sqlite": {
+			"databasePath": "/database/laravel-echo-server.sqlite"
+		}
+	},
+	"devMode": true,
+	"host": null,
+	"port": "6001",
+	"protocol": "http",
+	"socketio": {},
+	"sslCertPath": "",
+	"sslKeyPath": "",
+	"sslCertChainPath": "",
+	"sslPassphrase": "",
+	"apiOriginAllow": {}
+}
