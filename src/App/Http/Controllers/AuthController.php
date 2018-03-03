@@ -68,9 +68,7 @@ class AuthController extends Controller
      */
     public function scanLogin($uuid)
     {
-        if (Auth::id()) {
-            event(new LoginBroadcasting($uuid));//登录成功广播事件
-        }
+        event(new LoginBroadcasting($uuid));//登录成功广播事件
         $configs = $this->configModel->where('status', 1)->get();
         $socialite = $configs->mapWithKeys(function ($config) use ($uuid) {
             return [
@@ -113,10 +111,10 @@ class AuthController extends Controller
                 'nickname' => $socialiteUser->nickname,
             ];
             //方式用户名和邮箱已存在
-            if($this->userModel->findForUser($input['name'])){
+            if ($this->userModel->findForUser($input['name'])) {
                 $input['name'] = $service.'_'.$input['name'];
             }
-            if($this->userModel->findForUser($input['email'])){
+            if ($this->userModel->findForUser($input['email'])) {
                 $input['email'] = $service.'_'.$input['email'];
             }
             $user = $this->userModel->create($input);//创建用户
