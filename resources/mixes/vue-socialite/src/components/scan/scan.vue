@@ -1,16 +1,20 @@
 <template>
 <div id="app" class="qrcode">
     <div class="main">
+        <div
+          v-if="state"
+          class="scanSuccess"
+        >
+            <i class="fa fa-check-circle"></i>
+            <span>扫描成功</span>
+        </div>
         <qrcode-item
+         v-else
          v-model="QRcode"
          :config="config"
-         v-if="QRcode"
        />
-       <div class="scanSuccess">
-
-       </div>
         <div class="state">
-            {{state}}
+            使用手机扫码登录
         </div>
     </div>
 </div>
@@ -26,10 +30,11 @@ export default {
   data () {
     return {
       QRcode: 'null',
+      redirect: null,
       config: {
         size: 320
       },
-      state: '使用手机扫码登录'
+      state: false
     }
   },
   computed: {
@@ -42,6 +47,7 @@ export default {
       let apiUrl = this.apiUrl
       let thenFunction = (Response) => {
         this.QRcode = Response.data.config.QRcode
+        this.redirect = Response.data.config.redirect
       }
       this.$store.dispatch('getData', {apiUrl, thenFunction})
     },
@@ -55,9 +61,14 @@ export default {
     getEventHandlers () {
       return {
         'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
-          forIn(response.cookies, (value, name) => {
-            Cookies.set(name, value)
-          })
+          if (response.uuid) {
+            forIn(response.cookies, (value, name) => {
+              Cookies.set(name, value)
+            })
+            location.href = this.redirect
+          } else {
+            this.state = true
+          }
         }
       }
     }
@@ -85,9 +96,22 @@ body{
     	background-color: #FFF;
     	padding: 15px;
         .scanSuccess{
-            width: 160px;
-            height: 37px;
-            background-color: #67C23A;
+            width: 320px;
+            height: 320px;
+            color: #67C23A;
+            background-color: #fff;
+            display: flex;
+        	flex-direction: column;
+        	justify-content: center;
+        	align-items: center;
+            i{
+                font-size: 75px;
+                color: #67C23A;
+                margin: 15px;
+            }
+            span{
+                font-size: 27px;
+            }
         }
         >.state {
         	margin-top: 15px;

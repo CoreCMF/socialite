@@ -40,6 +40,13 @@ class SocialiteEventSubscriber
             }
             $form->htmlEnd('
                     <div class="socialite">
+                        <a href="'.route('OAuth.scan', [
+                            'redirect' => $redirect,
+                        ]).'">
+                            <svg class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-scan"></use>
+                            </svg>
+                        </a>
                       '.$html.'
                     </div>
                   ');
