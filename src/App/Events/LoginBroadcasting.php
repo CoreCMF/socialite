@@ -2,7 +2,7 @@
 namespace CoreCMF\Socialite\App\Events;
 
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 class LoginBroadcasting implements ShouldBroadcast
@@ -10,7 +10,7 @@ class LoginBroadcasting implements ShouldBroadcast
     use SerializesModels;
 
     public $uuid;
-    public $laravelSession;
+    public $cookies;
 
     /**
      * 创建一个新的事件实例.
@@ -21,10 +21,11 @@ class LoginBroadcasting implements ShouldBroadcast
     public function __construct($uuid)
     {
         $this->uuid = $uuid;
-        $this->laravelSession = $_COOKIE['laravel_session'];
+        $this->cookies['laravel_token'] = $_COOKIE['laravel_token'];
+        $this->cookies['laravel_session'] = $_COOKIE['laravel_session'];
     }
     public function broadcastOn()
     {
-        return new PrivateChannel('App.User.Login.'.session('uuid'));
+        return new Channel('App.User.Login.'.$this->uuid);
     }
 }

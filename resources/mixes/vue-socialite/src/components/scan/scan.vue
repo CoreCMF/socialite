@@ -1,21 +1,25 @@
 <template>
 <div id="app" class="qrcode">
     <div class="main">
-        <div id="QRcode"></div>
         <qrcode-item
          v-model="QRcode"
          :config="config"
          v-if="QRcode"
        />
+       <div class="scanSuccess">
+
+       </div>
         <div class="state">
-            使用手机扫码登录
+            {{state}}
         </div>
     </div>
 </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 import echo from '../mixins/echo'
+import { forIn } from 'lodash'
 export default {
   name: 'socialite-scan',
   mixins: [echo],
@@ -24,7 +28,8 @@ export default {
       QRcode: 'null',
       config: {
         size: 320
-      }
+      },
+      state: '使用手机扫码登录'
     }
   },
   computed: {
@@ -50,7 +55,9 @@ export default {
     getEventHandlers () {
       return {
         'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
-          document.cookie = 'laravel_session=' + response.laravelSession
+          forIn(response.cookies, (value, name) => {
+            Cookies.set(name, value)
+          })
         }
       }
     }
@@ -77,6 +84,11 @@ body{
     	border-radius: 4px;
     	background-color: #FFF;
     	padding: 15px;
+        .scanSuccess{
+            width: 160px;
+            height: 37px;
+            background-color: #67C23A;
+        }
         >.state {
         	margin-top: 15px;
         	border-radius: 4px;
@@ -89,5 +101,4 @@ body{
     }
 
 }
-
 </style>
