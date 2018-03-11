@@ -1,9 +1,11 @@
-import scan from './scan'
 import QrcodeItem from './qrcode-item'
+import scan from './scan'
+import scanLogin from './scanLogin'
 
 const components = [
   QrcodeItem,
-  scan
+  scan,
+  scanLogin
 ]
 const install = function (Vue, opts = {}) {
   components.map(component => {

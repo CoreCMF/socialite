@@ -70,17 +70,11 @@ class AuthController extends Controller
      */
     public function scanLogin($uuid)
     {
-        event(new LoginBroadcasting($uuid));//登录成功广播事件
-        $configs = $this->configModel->where('status', 1)->get();
-        $socialite = $configs->mapWithKeys(function ($config) use ($uuid) {
-            return [
-                $config['service'] => route('OAuth.redirect', [
-                    'service' => $config['service'],
-                    'redirect' => encrypt(route('OAuth.scan.login').DIRECTORY_SEPARATOR.$uuid)
-                ])
-            ];
-        })->toArray();
-        return view('socialite::scanWapLogin', ['socialite' => $socialite]);
+        if (Auth::id()) {
+            $user = Auth::user();
+            dd($user->createToken('')->accessToken);
+        }
+        return view('core::index', [ 'model' => 'socialite' ]);
     }
     /**
      * 从Provider获取用户信息.

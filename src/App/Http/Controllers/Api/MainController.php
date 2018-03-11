@@ -20,10 +20,17 @@ class MainController
         //配置前端路由
         $this->builderMain->route([
           'path'  =>  '/OAuth/Scan/:redirect?',
-          'name'  =>  'admin.login',
+          'name'  =>  'OAuth.Scan',
           'apiUrl'  =>  route('api.socialite.scan'),
           'children' => null,
           'component' =>  '<socialite-scan/>'
+        ]);
+        $this->builderMain->route([
+          'path'  =>  '/OAuth/Scan/Login/:uuid?',
+          'name'  =>  'OAuth.Scan.Login',
+          'apiUrl'  =>  route('api.socialite.scanLogin'),
+          'children' => null,
+          'component' =>  '<socialite-scanLogin/>'
         ]);
         //配置前端广播频道和广播方式
         $this->builderMain->config('broadcast', [

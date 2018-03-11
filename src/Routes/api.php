@@ -14,6 +14,7 @@ Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CoreCMF\
     Route::group(['prefix' => 'socialite', 'as' => 'socialite.'], function () {
         Route::post('main', [ 'as' => 'main', 'uses' => 'MainController@index']);
         Route::post('scan', [ 'as' => 'scan', 'uses' => 'AuthController@scan']);
+        Route::post('scanLogin', [ 'as' => 'scanLogin', 'uses' => 'AuthController@scanLogin']);
     });
     /*
     |--------------------------------------------------------------------------

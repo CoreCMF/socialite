@@ -1,5 +1,5 @@
-<template>
-<div id="app" class="qrcode">
+.<template>
+<div class="qrcode">
     <div class="main">
         <div
           v-if="state"
@@ -21,9 +21,7 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import echo from '../mixins/echo'
-import { forIn } from 'lodash'
 export default {
   name: 'socialite-scan',
   mixins: [echo],
@@ -62,9 +60,6 @@ export default {
       return {
         'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
           if (response.state) {
-            forIn(response.cookies, (value, name) => {
-              Cookies.set(name, value)
-            })
             location.href = this.redirect
           } else {
             this.state = true
