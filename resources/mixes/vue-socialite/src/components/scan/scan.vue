@@ -61,7 +61,7 @@ export default {
     getEventHandlers () {
       return {
         'CoreCMF\\Socialite\\App\\Events\\LoginBroadcasting': response => {
-          if (response.uuid) {
+          if (response.state) {
             forIn(response.cookies, (value, name) => {
               Cookies.set(name, value)
             })

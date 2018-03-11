@@ -55,6 +55,8 @@ class AuthController extends Controller
     public function scan($redirect=null)
     {
         $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        $builderAsset = resolve('builderAsset')->config('redirect', decrypt($redirect));
+        view()->share('resources', $builderAsset->response());//视图共享数据
         return view('core::index', [ 'model' => 'socialite' ]);
     }
     /**

@@ -10,13 +10,11 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group(['prefix' => 'api', 'middleware' => 'web', 'namespace' => 'CoreCMF\Socialite\App\Http\Controllers\Api', 'as' => 'api.'], function () {
+Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CoreCMF\Socialite\App\Http\Controllers\Api', 'as' => 'api.'], function () {
     Route::group(['prefix' => 'socialite', 'as' => 'socialite.'], function () {
         Route::post('main', [ 'as' => 'main', 'uses' => 'MainController@index']);
         Route::post('scan', [ 'as' => 'scan', 'uses' => 'AuthController@scan']);
     });
-});
-Route::group(['prefix' => 'api', 'middleware' => 'api', 'namespace' => 'CoreCMF\Socialite\App\Http\Controllers\Api', 'as' => 'api.'], function () {
     /*
     |--------------------------------------------------------------------------
     | 需要用户认证路由模块

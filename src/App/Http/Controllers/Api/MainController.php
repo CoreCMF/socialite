@@ -4,9 +4,8 @@ namespace CoreCMF\Socialite\App\Http\Controllers\Api;
 
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class MainController extends Controller
+class MainController
 {
     private $builderMain;
     /** return  CoreCMF\Core\Builder\Main */

@@ -4,11 +4,9 @@ namespace CoreCMF\Socialite\App\Http\Controllers\Api;
 
 use Auth;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\App\Models\Config;
-use CoreCMF\Socialite\App\Events\LoginBroadcasting;
 
-class AuthController extends Controller
+class AuthController
 {
     private $request;
     private $configModel;
@@ -35,7 +33,6 @@ class AuthController extends Controller
     {
         $QRcode = route('OAuth.scan.login') . DIRECTORY_SEPARATOR . session('uuid');
         $this->builderHtml->config('QRcode', $QRcode);
-        $this->builderHtml->config('redirect', decrypt(session('redirect')));
         return $this->builderHtml->response();
     }
 }

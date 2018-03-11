@@ -12,6 +12,7 @@ class LoginBroadcasting implements ShouldBroadcast
 
     public $uuid;
     public $cookies;
+    public $state;
 
     /**
      * 创建一个新的事件实例.
@@ -21,9 +22,12 @@ class LoginBroadcasting implements ShouldBroadcast
      */
     public function __construct($uuid)
     {
-        $this->uuid = Auth::id()? $uuid : 0;
-        $this->cookies['laravel_token'] = $_COOKIE['laravel_token'];
-        $this->cookies['laravel_session'] = $_COOKIE['laravel_session'];
+        $this->uuid = $uuid;
+        $this->state = Auth::id()? 1 : 0;
+        // if ($this->state) {
+        //     $this->cookies['laravel_token'] = $_COOKIE['laravel_token'];
+        //     $this->cookies['laravel_session'] = $_COOKIE['laravel_session'];
+        // }
     }
     public function broadcastOn()
     {
