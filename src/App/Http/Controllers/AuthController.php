@@ -4,6 +4,7 @@ namespace CoreCMF\Socialite\App\Http\Controllers;
 
 use Auth;
 use Socialite;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\App\Models\User as SocialiteUser;
@@ -58,10 +59,14 @@ class AuthController extends Controller
      */
     public function scan($redirect=null)
     {
-        $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
-        $builderAsset = resolve('builderAsset')->config('redirect', decrypt($redirect));
-        view()->share('resources', $builderAsset->response());//视图共享数据
-        return view('core::index', [ 'model' => 'socialite' ]);
+        // $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
+        // $builderAsset = resolve('builderAsset')->config('redirect', decrypt($redirect));
+        // view()->share('resources', $builderAsset->response());//视图共享数据
+
+        //缓存此次访问唯一id
+        session(['uuid' => (string) Str::uuid()]);
+        $QRcode = route('OAuth.scan.login') . DIRECTORY_SEPARATOR . session('uuid');
+        return view('socialite::scanLogin', [ 'QRcode' => $QRcode ]);
     }
     /**
      * [scanWapLogin wap扫码后页面]
@@ -74,9 +79,17 @@ class AuthController extends Controller
      */
     public function scanLogin($uuid)
     {
-        $builderAsset = resolve('builderAsset')->config('uuid', $uuid);
-        view()->share('resources', $builderAsset->response());//视图共享数据
-        return view('core::index', [ 'model' => 'socialite' ]);
+        event(new LoginBroadcasting($uuid));//登录成功广播事件
+        $configs = $this->configModel->where('status', 1)->get();
+        $socialite = $configs->mapWithKeys(function ($config) use ($uuid) {
+            return [
+                $config['service'] => route('OAuth.redirect', [
+                    'service' => $config['service'],
+                    'redirect' => encrypt(route('OAuth.scan.login').DIRECTORY_SEPARATOR.$uuid)
+                ])
+            ];
+        })->toArray();
+        return view('socialite::scanWapLogin', ['socialite' => $socialite]);
     }
     /**
      * [scanSuccess 付款成功回调]

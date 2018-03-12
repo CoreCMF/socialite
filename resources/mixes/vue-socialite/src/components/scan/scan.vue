@@ -1,4 +1,4 @@
-.<template>
+<template>
 <div class="qrcode">
     <div class="main">
         <div
