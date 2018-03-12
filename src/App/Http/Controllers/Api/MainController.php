@@ -32,6 +32,12 @@ class MainController
           'children' => null,
           'component' =>  '<socialite-scanLogin/>'
         ]);
+        $this->builderMain->route([
+          'path'  =>  '/OAuth/Scan/Login/scanSuccess',
+          'name'  =>  'OAuth.Scan.scanSuccess',
+          'children' => null,
+          'component' =>  '<socialite-scanSuccess/>'
+        ]);
         //配置前端广播频道和广播方式
         $this->builderMain->config('broadcast', [
             'channel' => 'App.User.Login.'.session('uuid'),

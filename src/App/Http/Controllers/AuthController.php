@@ -7,9 +7,10 @@ use Socialite;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use CoreCMF\Socialite\App\Models\User as SocialiteUser;
-use CoreCMF\Core\App\Models\User;
 use CoreCMF\Socialite\App\Models\Config;
+use CoreCMF\Core\App\Models\User;
 use CoreCMF\Core\App\Models\Upload;
+use CoreCMF\Core\App\Models\PassportClient;
 use CoreCMF\Socialite\App\Events\LoginBroadcasting;
 
 class AuthController extends Controller
@@ -19,19 +20,22 @@ class AuthController extends Controller
     private $configModel;
     private $uploadModel;
     private $socialiteUserModel;
+    private $passportClient;
 
     public function __construct(
       Request $request,
       User $userRepo,
       Config $configRepo,
       Upload $uploadRepo,
-      SocialiteUser $socialiteUserRepo
+      SocialiteUser $socialiteUserRepo,
+      PassportClient $passportClientRepo
     ) {
         $this->request = $request;
         $this->userModel = $userRepo;
         $this->configModel = $configRepo;
         $this->uploadModel = $uploadRepo;
         $this->socialiteUserModel = $socialiteUserRepo;
+        $this->passportClient = $passportClientRepo;
     }
     /**
      * 将用户重定向到Provider认证页面
@@ -70,9 +74,25 @@ class AuthController extends Controller
      */
     public function scanLogin($uuid)
     {
+        $builderAsset = resolve('builderAsset')->config('uuid', $uuid);
+        view()->share('resources', $builderAsset->response());//视图共享数据
+        return view('core::index', [ 'model' => 'socialite' ]);
+    }
+    /**
+     * [scanSuccess 付款成功回调]
+     * @return   [type]         [description]
+     * @Author   bigrocs
+     * @QQ       532388887
+     * @Email    bigrocs@qq.com
+     * @DateTime 2018-03-12
+     */
+    public function scanSuccess()
+    {
         if (Auth::id()) {
-            $user = Auth::user();
-            dd($user->createToken('')->accessToken);
+            $token = $this->passportClient->getPersonalAccessToken(Auth::id());
+            $token['status_code'] = 200;
+            $builderAsset = resolve('builderAsset')->config('toekn', $token);
+            view()->share('resources', $builderAsset->response());//视图共享数据
         }
         return view('core::index', [ 'model' => 'socialite' ]);
     }
