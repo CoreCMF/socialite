@@ -11,7 +11,6 @@ use CoreCMF\Socialite\App\Models\User as SocialiteUser;
 use CoreCMF\Socialite\App\Models\Config;
 use CoreCMF\Core\App\Models\User;
 use CoreCMF\Core\App\Models\Upload;
-use CoreCMF\Core\App\Models\PassportClient;
 use CoreCMF\Socialite\App\Events\LoginBroadcasting;
 
 class AuthController extends Controller
@@ -21,22 +20,19 @@ class AuthController extends Controller
     private $configModel;
     private $uploadModel;
     private $socialiteUserModel;
-    private $passportClient;
 
     public function __construct(
       Request $request,
       User $userRepo,
       Config $configRepo,
       Upload $uploadRepo,
-      SocialiteUser $socialiteUserRepo,
-      PassportClient $passportClientRepo
+      SocialiteUser $socialiteUserRepo
     ) {
         $this->request = $request;
         $this->userModel = $userRepo;
         $this->configModel = $configRepo;
         $this->uploadModel = $uploadRepo;
         $this->socialiteUserModel = $socialiteUserRepo;
-        $this->passportClient = $passportClientRepo;
     }
     /**
      * 将用户重定向到Provider认证页面
@@ -59,14 +55,17 @@ class AuthController extends Controller
      */
     public function scan($redirect=null)
     {
-        // $this->request->session()->put('redirect', $redirect);//传入授权后的重定向加密网址 存入session
-        // $builderAsset = resolve('builderAsset')->config('redirect', decrypt($redirect));
-        // view()->share('resources', $builderAsset->response());//视图共享数据
-
+        $builderAsset = resolve('builderAsset');
         //缓存此次访问唯一id
         session(['uuid' => (string) Str::uuid()]);
-        $QRcode = route('OAuth.scan.login') . DIRECTORY_SEPARATOR . session('uuid');
-        return view('socialite::scanLogin', [ 'QRcode' => $QRcode ]);
+        $builderAsset->config('QRcode', route('OAuth.scan.login') . DIRECTORY_SEPARATOR . session('uuid'));
+        $builderAsset->config('redirect', decrypt($redirect));
+        $builderAsset->config('broadcastOptions', [
+            'channel' => 'App.User.Login.'.session('uuid'),
+            'type' => 'channel'
+        ]);
+        view()->share('resources', $builderAsset->response());//视图共享数据
+        return view('socialite::scanLogin');
     }
     /**
      * [scanWapLogin wap扫码后页面]
@@ -101,12 +100,6 @@ class AuthController extends Controller
      */
     public function scanSuccess()
     {
-        if (Auth::id()) {
-            $token = $this->passportClient->getPersonalAccessToken(Auth::id());
-            $token['status_code'] = 200;
-            $builderAsset = resolve('builderAsset')->config('toekn', $token);
-            view()->share('resources', $builderAsset->response());//视图共享数据
-        }
         return view('core::index', [ 'model' => 'socialite' ]);
     }
     /**
