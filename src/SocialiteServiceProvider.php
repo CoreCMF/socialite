@@ -32,8 +32,7 @@ class SocialiteServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'socialite');
         //设置发布前端文件
         $this->publishes([
-            __DIR__.'/../resources/vendor/socialite' => public_path('vendor/socialite/other'),
-            __DIR__.'/../resources/mixes/vue-socialite/dist/vendor' => public_path('vendor'),
+            __DIR__.'/../resources/vendor' => public_path('vendor'),
         ], 'socialite');
         $this->initService();
     }
