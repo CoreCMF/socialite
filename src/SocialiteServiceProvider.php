@@ -61,8 +61,8 @@ class SocialiteServiceProvider extends ServiceProvider
     public function viewShare()
     {
         $builderAsset = resolve('builderAsset');
-        $builderAsset->css(asset('/vendor/socialite/other/css/app.css'));
-        $builderAsset->js(asset('/vendor/socialite/other/js/iconfont.js'));
+        $builderAsset->css(asset('/vendor/socialite/css/app.css'));
+        $builderAsset->js(asset('/vendor/socialite/js/iconfont.js'));
         view()->share('resources', $builderAsset->response());//视图共享数据
     }
 }
