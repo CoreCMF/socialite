@@ -19,6 +19,5 @@ Route::group(['prefix' => 'OAuth', 'middleware' => 'web', 'namespace' => 'CoreCM
     Route::get('{service}/callback', [ 'as' => 'callback', 'uses' => 'AuthController@handleProviderCallback']);
     Route::get('Scan/{redirect?}', [ 'as' => 'scan', 'uses' => 'AuthController@scan']);
     Route::get('Scan/Login/{uuid?}', [ 'as' => 'scan.login', 'uses' => 'AuthController@scanLogin']);
-    Route::get('Scan/Login/scanSuccess', [ 'as' => 'scan.success', 'uses' => 'AuthController@scanSuccess']);
     Route::get('{service}/{redirect?}', [ 'as' => 'redirect', 'uses' => 'AuthController@redirectToProvider']);
 });

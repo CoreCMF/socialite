@@ -13,17 +13,38 @@
         <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link href={{ asset('/vendor/socialite/other/css/app.css') }} rel=stylesheet>
+    <link href={{ asset('/css/bootstrap.css') }} rel=stylesheet>
+    <script>
+        window.config = {
+            userId: {{ empty(Auth::id())? 0: Auth::id()  }},
+@if (!empty($resources['config']))
+  @foreach ($resources['config'] as $key => $config)
+          {{ $key }}: {!! json_encode($config) !!},
+  @endforeach
+@endif
+        }
+    </script>
 </head>
 <body>
     <div id=app class="scanqWap">
         <div class="main">
-            <a v-for="(url,service) in socialite" :href="url">
-                <svg class="icon" aria-hidden="true">
-                    <use :xlink:href="'#icon-' + service"></use>
-                </svg>
-            </a>
-            <div class="state">
-                请选择登录方式
+            <div v-if="userInfos" class="userInfo">
+                <img :src="userInfos.avatarUrl" alt="">
+                <span v-html="userInfos.showname"></span>
+                <span class="success">登陆成功</span>
+                <button type="button" class="btn btn-light" @click="handlerCloseWeb">关闭网页</button>
+            </div>
+            <div v-else>
+                <div class="loginIcon">
+                    <a v-for="(url,service) in socialite" :href="url">
+                        <svg class="icon" aria-hidden="true">
+                            <use :xlink:href="'#icon-' + service"></use>
+                        </svg>
+                    </a>
+                </div>
+                <div class="state">
+                    请选择登录方式
+                </div>
             </div>
         </div>
     </div>
@@ -40,14 +61,16 @@
                         @endforeach
                       @endif
                   },
+                  userInfos: window.config.userInfos
               };
             },
-            mounted() {
-                this.init()
-            },
             methods: {
-              init() {
-
+              handlerCloseWeb() {
+                  window.open('','_self')
+                  window.close()
+                  if (typeof WeixinJSBridge != 'undefined') {
+                      WeixinJSBridge.call('closeWindow')
+                  }
               }
             }
           };

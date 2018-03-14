@@ -88,19 +88,20 @@ class AuthController extends Controller
                 ])
             ];
         })->toArray();
+        if (Auth::id()) {
+            $users = Auth::user();
+            $users->load('userInfos');
+            $showname = $users->nickname? $users->nickname: $users->name;
+            $showname = $showname? $showname: $users->email;
+            $userInfos = [
+                'showname' => $showname,
+                'avatarUrl' => $users->userInfos->avatarUrl
+            ];
+            $builderAsset = resolve('builderAsset');
+            $builderAsset->config('userInfos', $userInfos);
+            view()->share('resources', $builderAsset->response());//视图共享数据
+        }
         return view('socialite::scanWapLogin', ['socialite' => $socialite]);
-    }
-    /**
-     * [scanSuccess 付款成功回调]
-     * @return   [type]         [description]
-     * @Author   bigrocs
-     * @QQ       532388887
-     * @Email    bigrocs@qq.com
-     * @DateTime 2018-03-12
-     */
-    public function scanSuccess()
-    {
-        return view('core::index', [ 'model' => 'socialite' ]);
     }
     /**
      * 从Provider获取用户信息.
